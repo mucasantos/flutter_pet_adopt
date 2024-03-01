@@ -18,7 +18,7 @@ const InputDecoration textFieldDecoration = InputDecoration(
     borderSide: BorderSide(color: Color.fromARGB(255, 255, 135, 171), width: 1),
   ),
   filled: true,
-  fillColor: Color.fromARGB(49, 255, 135, 171),
+  fillColor: Color.fromARGB(26, 255, 135, 171),
   border: OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(15)),
   ),
