@@ -25,12 +25,14 @@ class LoginScreen extends StatelessWidget {
                 Image.asset(
                   logoImage,
                 ),
-                const Text(
-                  "Adopt Me",
-                  style: TextStyle(
-                    fontSize: 38,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 255, 135, 171),
+                const Expanded(
+                  child: Text(
+                    "Adopt Me",
+                    style: TextStyle(
+                      fontSize: 38,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 255, 135, 171),
+                    ),
                   ),
                 ),
               ],
@@ -108,7 +110,7 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 2,
+            flex: 1,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
