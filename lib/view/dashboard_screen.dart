@@ -1,0 +1,181 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_pet_adopt/services/constants.dart';
+import 'package:flutter_pet_adopt/widgets/pet_container.dart';
+import 'package:flutter_pet_adopt/widgets/sized_icon_image.dart';
+
+class DashBoardScreen extends StatefulWidget {
+  const DashBoardScreen({super.key});
+
+  @override
+  State<DashBoardScreen> createState() => _DashBoardScreenState();
+}
+
+class _DashBoardScreenState extends State<DashBoardScreen> {
+  int? chipValue = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    final screenWitdth = MediaQuery.of(context).size.width;
+    final int crossAxisCount = screenWitdth > 600 ? 3 : 2;
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 16.0),
+          child: Image.asset(
+            userProfile,
+          ),
+        ),
+        title: const Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Good Morning!",
+                  style: TextStyle(
+                    color: mainColor,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                Text(
+                  "Samuel Santos",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.notifications_none,
+                size: 30,
+              ))
+        ],
+        bottom: PreferredSize(
+          preferredSize:
+              Size.fromHeight(MediaQuery.of(context).size.height / 6),
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    suffixIcon: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        SizedIconImage(
+                          imageAsset: iconSearch,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        SizedIconImage(
+                          imageAsset: iconVertical,
+                          width: 3,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        SizedIconImage(
+                          imageAsset: iconFilter,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                      ],
+                    ),
+                    labelText: 'Search',
+                    contentPadding: EdgeInsets.all(10),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      borderSide: BorderSide(
+                        color: Color.fromARGB(255, 175, 175, 175),
+                        width: 1,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      borderSide: BorderSide(
+                        color: Color.fromARGB(255, 175, 175, 175),
+                        width: 1,
+                      ),
+                    ),
+                    filled: true,
+                    fillColor: Color(0xfff8f8f8),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+                  ),
+                ),
+              ),
+              SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(
+                    10,
+                    (index) => Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ChoiceChip(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(
+                              15.0,
+                            ),
+                          ),
+                        ),
+                        selectedColor: mainColor,
+                        showCheckmark: false,
+                        selected: chipValue == index,
+                        onSelected: (bool selected) {
+                          setState(() {
+                            chipValue = selected ? index : null;
+                          });
+                        },
+                        avatar: const CircleAvatar(
+                          backgroundImage: AssetImage(dogImage),
+                        ),
+                        label: const Text(
+                          'Cat',
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Expanded(
+            child: GridView.builder(
+                padding: const EdgeInsets.all(12.0),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: crossAxisCount,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 5,
+                  childAspectRatio: 0.83,
+                ),
+                itemCount: 6,
+                itemBuilder: (BuildContext context, int index) {
+                  return const PetContainer();
+                }),
+          ),
+        ],
+      ),
+    );
+  }
+}

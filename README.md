@@ -2,6 +2,11 @@
 
 A new Flutter project.
 
+# design inspiration
+
+https://www.figma.com/community/file/1275694472706602668/adopt-me
+
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

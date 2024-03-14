@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pet_adopt/services/constants.dart';
+import 'package:flutter_pet_adopt/widgets/app_button.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({
@@ -20,16 +21,16 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
                 Image.asset(
-                  logoImage,
+                  dogAnimaOne,
                 ),
                 const Expanded(
                   child: Text(
                     "Adopt Me",
                     style: TextStyle(
-                      fontSize: 38,
+                      fontSize: 30,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(255, 255, 135, 171),
                     ),
@@ -38,43 +39,43 @@ class LoginScreen extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
+          const Expanded(
             flex: 3,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(left: 16.0),
                   child: Text(
                     "Email or Phone number",
                     style: titleStyle,
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.all(16.0),
                   child: TextField(
                     decoration: textFieldDecoration,
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(left: 16.0),
                   child: Text(
                     "Password",
                     style: titleStyle,
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.all(16.0),
                   child: TextField(
                     decoration: textFieldDecoration,
                   ),
                 ),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(right: 16.0),
+                      padding: EdgeInsets.only(right: 16.0, bottom: 16),
                       child: Text(
                         "Forgot Password?",
                         style: titleStyle,
@@ -82,30 +83,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: mainColor,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 50, vertical: 20),
-                                  textStyle: const TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                              onPressed: () {},
-                              child: const Text(
-                                "Signin",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ))),
-                    ],
-                  ),
-                ),
+                AppButton(),
               ],
             ),
           ),
@@ -146,6 +124,9 @@ class LoginScreen extends StatelessWidget {
                 )
               ],
             ),
+          ),
+          const SizedBox(
+            height: 50,
           )
         ],
       ),
