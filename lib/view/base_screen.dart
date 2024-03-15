@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pet_adopt/services/constants.dart';
 import 'package:flutter_pet_adopt/view/dashboard_screen.dart';
-import 'package:flutter_pet_adopt/view/pet_screen.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({super.key});

@@ -1,7 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_pet_adopt/services/constants.dart';
 import 'package:flutter_pet_adopt/widgets/app_button.dart';
 import 'package:flutter_pet_adopt/widgets/pet_info_container.dart';
@@ -57,7 +55,7 @@ class PetScreen extends StatelessWidget {
             SliverFixedExtentList(
               itemExtent: MediaQuery.of(context).size.height,
               delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) => Column(
+                (BuildContext context, int index) => const Column(
                   children: [
                     Padding(
                       padding: EdgeInsets.all(16.0),
@@ -89,7 +87,7 @@ class PetScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         PetInfoContainer(
@@ -110,17 +108,17 @@ class PetScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 20,
                     ),
                     Text("My Story"),
                     Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: EdgeInsets.all(16.0),
                       child: Text(
                           "Legs foi resgatada em Itaquaquecetuba, atropelada, duas patas quebradas. Chovia muito naquele dia. Encontrei ela jogada num canto de uma estradinha de terra, ensopada. Tremia muito, não sei se de medo, frio, dor, ou tudo isso junto. Aquela cachorra porte grande, pelo grosso e desgranhado, preta , de olhar assustado, não resistiu um minuto aos movimentos para colocá-la no carro. Enquanto eu saia com o carro me dei conta de que era 20 de dezembro, e que eu não tinha onde hospedá-la. Devido às festas de fim de ano, os hotéis e creches estão lotado e eu não tinha  vaga no Santo Pet."),
                     ),
-                    const AppButton(),
-                    const SizedBox(
+                    AppButton(),
+                    SizedBox(
                       height: 20,
                     ),
                   ],
