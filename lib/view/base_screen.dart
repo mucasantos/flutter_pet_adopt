@@ -23,7 +23,9 @@ class _BaseScreenState extends State<BaseScreen> {
         physics: const NeverScrollableScrollPhysics(),
         children: [
           const DashBoardScreen(),
-          const PetScreen(),
+          Container(
+            color: Colors.blueGrey,
+          ),
           Container(
             color: Colors.blue,
           ),

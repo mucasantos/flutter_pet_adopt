@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pet_adopt/services/constants.dart';
+import 'package:flutter_pet_adopt/view/pet_screen.dart';
 import 'package:flutter_pet_adopt/widgets/pet_container.dart';
 import 'package:flutter_pet_adopt/widgets/sized_icon_image.dart';
 
@@ -63,7 +64,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         ],
         bottom: PreferredSize(
           preferredSize:
-              Size.fromHeight(MediaQuery.of(context).size.height / 6),
+              Size.fromHeight(MediaQuery.of(context).size.height / 5),
           child: Column(
             children: [
               const Padding(
@@ -171,7 +172,14 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                 ),
                 itemCount: 6,
                 itemBuilder: (BuildContext context, int index) {
-                  return const PetContainer();
+                  return GestureDetector(
+                    onTap: (){
+                      Navigator.push(context,
+                      MaterialPageRoute(
+                          builder: (context) => const PetScreen()),);
+                    
+                    },
+                    child: const PetContainer());
                 }),
           ),
         ],

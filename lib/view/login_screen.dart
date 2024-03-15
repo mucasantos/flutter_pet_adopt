@@ -14,7 +14,7 @@ class LoginScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           const SizedBox(
-            height: 50,
+            height: 20,
           ),
           Expanded(
             flex: 2,
@@ -126,7 +126,7 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 50,
+            height: 10,
           )
         ],
       ),

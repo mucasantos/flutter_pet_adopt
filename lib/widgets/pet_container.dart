@@ -28,7 +28,7 @@ class PetContainer extends StatelessWidget {
                   child: Image.asset(
                     'assets/images/dog1.png',
                     fit: BoxFit.contain,
-                    width: MediaQuery.of(context).size.width,
+                  width: MediaQuery.of(context).size.width,
                   )),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.0),
