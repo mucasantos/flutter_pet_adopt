@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pet_adopt/services/constants.dart';
 import 'package:flutter_pet_adopt/view/base_screen.dart';
-import 'package:flutter_pet_adopt/view/signup_screen.dart';
+import 'package:flutter_pet_adopt/view/login_screen.dart';
 import 'package:flutter_pet_adopt/widgets/app_button.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({
+class SignupScreen extends StatelessWidget {
+  const SignupScreen({
     super.key,
   });
 
@@ -47,10 +47,23 @@ class LoginScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                 const Padding(
+                  padding: EdgeInsets.only(left: 16.0),
+                  child: Text(
+                    "Nome",
+                    style: titleStyle,
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: TextField(
+                    decoration: textFieldDecoration,
+                  ),
+                ),
                 const Padding(
                   padding: EdgeInsets.only(left: 16.0),
                   child: Text(
-                    "Email or Phone number",
+                    "Email",
                     style: titleStyle,
                   ),
                 ),
@@ -73,27 +86,15 @@ class LoginScreen extends StatelessWidget {
                     decoration: textFieldDecoration,
                   ),
                 ),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(right: 16.0, bottom: 16),
-                      child: Text(
-                        "Forgot Password?",
-                        style: titleStyle,
-                      ),
-                    ),
-                  ],
-                ),
-                AppButton(
-                  onclick: (){
-                    Navigator.pushReplacement(
+               
+                AppButton(title: "SignUp",
+                onclick: (){
+                  Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const BaseScreen()),
                     );
-                  },
-                ),
+                },),
               ],
             ),
           ),
@@ -119,17 +120,17 @@ class LoginScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Don't have an account?"),
+                    const Text("Have an account?"),
                     TextButton(
                       onPressed: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const SignupScreen()),
+                          builder: (context) => const LoginScreen()),
                     );
                       },
                       child: const Text(
-                        'Signup',
+                        'Login',
                         style: TextStyle(
                           color: mainColor,
                           fontWeight: FontWeight.bold,

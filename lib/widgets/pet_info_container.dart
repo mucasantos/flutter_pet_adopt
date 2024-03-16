@@ -5,17 +5,17 @@ class PetInfoContainer extends StatelessWidget {
   const PetInfoContainer({
     super.key,
     required this.info,
-    required this.title,
+     this.title,
   });
 
-  final String title;
+  final String ? title;
   final String info;
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        vertical: 12,
-        horizontal: 18,
+      padding:  EdgeInsets.symmetric(
+        vertical: title ==null ? 2 : 12 ,
+        horizontal: title ==null ? 4 : 18 ,
       ),
       decoration: const BoxDecoration(
           color: Color.fromARGB(28, 255, 128, 128),
@@ -25,22 +25,23 @@ class PetInfoContainer extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          if (title != null)
           Text(
-            title,
+            title ?? '',
             style: const TextStyle(
               color: mainColor,
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
           ),
-          Text(
-            info,
-            style: const TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w400,
-              fontSize: 12,
-            ),
+         Text(
+          info,
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w400,
+            fontSize: 10,
           ),
+        ),
         ],
       ),
     );

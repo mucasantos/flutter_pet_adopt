@@ -1,5 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_pet_adopt/services/constants.dart';
+import 'package:flutter_pet_adopt/view/filter_screen.dart';
 import 'package:flutter_pet_adopt/view/pet_screen.dart';
 import 'package:flutter_pet_adopt/widgets/pet_container.dart';
 import 'package:flutter_pet_adopt/widgets/sized_icon_image.dart';
@@ -67,44 +69,53 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
               Size.fromHeight(MediaQuery.of(context).size.height / 5),
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextField(
                   decoration: InputDecoration(
                     suffixIcon: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        SizedIconImage(
+                        const SizedIconImage(
                           imageAsset: iconSearch,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
-                        SizedIconImage(
+                        const SizedIconImage(
                           imageAsset: iconVertical,
                           width: 3,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
-                        SizedIconImage(
-                          imageAsset: iconFilter,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const FilterScreen()),
+                            );
+                          },
+                          child: const SizedIconImage(
+                            imageAsset: iconFilter,
+                          ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                       ],
                     ),
                     labelText: 'Search',
-                    contentPadding: EdgeInsets.all(10),
-                    focusedBorder: OutlineInputBorder(
+                    contentPadding: const EdgeInsets.all(10),
+                    focusedBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                       borderSide: BorderSide(
                         color: Color.fromARGB(255, 175, 175, 175),
                         width: 1,
                       ),
                     ),
-                    enabledBorder: OutlineInputBorder(
+                    enabledBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                       borderSide: BorderSide(
                         color: Color.fromARGB(255, 175, 175, 175),
@@ -112,8 +123,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       ),
                     ),
                     filled: true,
-                    fillColor: Color(0xfff8f8f8),
-                    border: OutlineInputBorder(
+                    fillColor: const Color(0xfff8f8f8),
+                    border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                     ),
                   ),
@@ -124,10 +135,14 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: List.generate(
-                    10,
+                    4,
                     (index) => Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ChoiceChip(
+                        side: const BorderSide(
+                          width: 0.0,
+                          color: Colors.white,
+                        ),
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(
@@ -136,6 +151,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           ),
                         ),
                         selectedColor: mainColor,
+                        backgroundColor:
+                            const Color.fromARGB(255, 227, 222, 222),
                         showCheckmark: false,
                         selected: chipValue == index,
                         onSelected: (bool selected) {
@@ -168,18 +185,19 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   crossAxisCount: crossAxisCount,
                   crossAxisSpacing: 5,
                   mainAxisSpacing: 5,
-                  childAspectRatio: 0.83,
+                  childAspectRatio: 0.80,
                 ),
                 itemCount: 6,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
-                    onTap: (){
-                      Navigator.push(context,
-                      MaterialPageRoute(
-                          builder: (context) => const PetScreen()),);
-                    
-                    },
-                    child: const PetContainer());
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const PetScreen()),
+                        );
+                      },
+                      child: const PetContainer());
                 }),
           ),
         ],

@@ -10,6 +10,7 @@ https://www.figma.com/community/file/1275694472706602668/adopt-me
 ## Getting Started
 
 This project is a starting point for a Flutter application.
+First building the components, then factoring the code and connecting with backend
 
 A few resources to get you started if this is your first Flutter project:
 
