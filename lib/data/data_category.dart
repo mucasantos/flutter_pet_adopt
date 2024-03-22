@@ -6,4 +6,5 @@ List<Category> categories = [
   Category(name: 'Dog', image: 'assets/images/dog1.png'),
   Category(name: 'Rabbit', image: 'assets/images/dog1.png'),
   Category(name: 'Others', image: 'assets/images/dog1.png'),
+  Category(name: 'Others', image: 'assets/images/dog1.png'),
 ];

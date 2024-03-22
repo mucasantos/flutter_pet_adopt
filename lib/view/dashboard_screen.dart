@@ -15,7 +15,7 @@ class DashBoardScreen extends StatefulWidget {
 }
 
 class _DashBoardScreenState extends State<DashBoardScreen> {
-  int chipValue = 0;
+  int? chipValue = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -143,6 +143,11 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       index: index,
                       name: categories[index].name,
                       chipValue: chipValue,
+                      onSelected: (bool selected) {
+                        setState(() {
+                          chipValue = selected ? index : null;
+                        });
+                      },
                     );
                   },
                 ),

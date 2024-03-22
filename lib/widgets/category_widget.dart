@@ -12,7 +12,7 @@ class CategoryWidget extends StatelessWidget {
   });
   final String image;
   final int index;
-  final int chipValue;
+  final int? chipValue;
   final String name;
   final void Function(bool value)? onSelected;
 
@@ -37,11 +37,7 @@ class CategoryWidget extends StatelessWidget {
         showCheckmark: false,
         selected: chipValue == index,
         onSelected: onSelected,
-       // (bool selected) {
-       //   setState(() {
-       //     chipValue = selected ? index : null;
-       //   });
-       // },
+       
         avatar:  CircleAvatar(
           backgroundImage: AssetImage(image),
         ),
