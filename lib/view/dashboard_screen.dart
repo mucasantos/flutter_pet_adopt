@@ -1,8 +1,9 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_pet_adopt/data/data_category.dart';
 import 'package:flutter_pet_adopt/services/constants.dart';
 import 'package:flutter_pet_adopt/view/filter_screen.dart';
 import 'package:flutter_pet_adopt/view/pet_screen.dart';
+import 'package:flutter_pet_adopt/widgets/category_widget.dart';
 import 'package:flutter_pet_adopt/widgets/pet_container.dart';
 import 'package:flutter_pet_adopt/widgets/sized_icon_image.dart';
 
@@ -14,7 +15,7 @@ class DashBoardScreen extends StatefulWidget {
 }
 
 class _DashBoardScreenState extends State<DashBoardScreen> {
-  int? chipValue = 0;
+  int chipValue = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -130,47 +131,22 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   ),
                 ),
               ),
-              SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: List.generate(
-                    4,
-                    (index) => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ChoiceChip(
-                        side: const BorderSide(
-                          width: 0.0,
-                          color: Colors.white,
-                        ),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(
-                              15.0,
-                            ),
-                          ),
-                        ),
-                        selectedColor: mainColor,
-                        backgroundColor:
-                            const Color.fromARGB(255, 227, 222, 222),
-                        showCheckmark: false,
-                        selected: chipValue == index,
-                        onSelected: (bool selected) {
-                          setState(() {
-                            chipValue = selected ? index : null;
-                          });
-                        },
-                        avatar: const CircleAvatar(
-                          backgroundImage: AssetImage(dogImage),
-                        ),
-                        label: const Text(
-                          'Cat',
-                        ),
-                      ),
-                    ),
-                  ),
+              SizedBox(
+                height: 100,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: categories.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return CategoryWidget(
+                      image: categories[index].image,
+                      index: index,
+                      name: categories[index].name,
+                      chipValue: chipValue,
+                    );
+                  },
                 ),
-              ),
+              )
             ],
           ),
         ),
