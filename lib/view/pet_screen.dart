@@ -1,7 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_pet_adopt/services/constants.dart';
 import 'package:flutter_pet_adopt/view/base_screen.dart';
 import 'package:flutter_pet_adopt/widgets/app_button.dart';
@@ -58,7 +56,7 @@ class PetScreen extends StatelessWidget {
             SliverFixedExtentList(
               itemExtent: MediaQuery.of(context).size.height,
               delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) =>  Column(
+                (BuildContext context, int index) => Column(
                   children: [
                     const Padding(
                       padding: EdgeInsets.all(16.0),
@@ -111,7 +109,6 @@ class PetScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    
                     const Padding(
                       padding: EdgeInsets.all(12.0),
                       child: Row(
@@ -123,7 +120,6 @@ class PetScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                   
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.0),
                       child: Align(
@@ -177,13 +173,7 @@ class PetScreen extends StatelessWidget {
                     ),
                     AppButton(
                       title: "Adopte me",
-                      onclick: (){
-                        Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BaseScreen()),
-                    );
-                      },
+                      onclick: () {},
                     ),
                     const SizedBox(
                       height: 20,

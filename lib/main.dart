@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pet_adopt/controller/pet_controller.dart';
+import 'package:flutter_pet_adopt/controller/user_controller.dart';
 import 'package:flutter_pet_adopt/services/constants.dart';
 import 'package:flutter_pet_adopt/view/login_screen.dart';
+import 'package:flutter_pet_adopt/widgets/pet_container.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(
+      create: (_) => UserController(),
+    ),
+    ChangeNotifierProvider(
+      create: (_) => PetController(),
+    ),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

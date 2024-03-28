@@ -41,13 +41,13 @@ class SignupScreen extends StatelessWidget {
               ],
             ),
           ),
-           Expanded(
+          Expanded(
             flex: 3,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                 const Padding(
+                const Padding(
                   padding: EdgeInsets.only(left: 16.0),
                   child: Text(
                     "Nome",
@@ -86,15 +86,10 @@ class SignupScreen extends StatelessWidget {
                     decoration: textFieldDecoration,
                   ),
                 ),
-               
-                AppButton(title: "SignUp",
-                onclick: (){
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BaseScreen()),
-                    );
-                },),
+                AppButton(
+                  title: "SignUp",
+                  onclick: () {},
+                ),
               ],
             ),
           ),
@@ -124,10 +119,10 @@ class SignupScreen extends StatelessWidget {
                     TextButton(
                       onPressed: () {
                         Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginScreen()),
-                    );
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginScreen()),
+                        );
                       },
                       child: const Text(
                         'Login',

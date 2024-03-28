@@ -1,8 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_pet_adopt/controller/pet_controller.dart';
+import 'package:flutter_pet_adopt/models/pets.dart';
+import 'package:flutter_pet_adopt/service/http_connect.dart';
 import 'package:flutter_pet_adopt/services/constants.dart';
 import 'package:flutter_pet_adopt/view/base_screen.dart';
 import 'package:flutter_pet_adopt/view/signup_screen.dart';
 import 'package:flutter_pet_adopt/widgets/app_button.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({
@@ -41,7 +47,7 @@ class LoginScreen extends StatelessWidget {
               ],
             ),
           ),
-           Expanded(
+          Expanded(
             flex: 3,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -86,7 +92,7 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
                 AppButton(
-                  onclick: (){
+                  onclick: () async {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
@@ -123,10 +129,10 @@ class LoginScreen extends StatelessWidget {
                     TextButton(
                       onPressed: () {
                         Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SignupScreen()),
-                    );
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SignupScreen()),
+                        );
                       },
                       child: const Text(
                         'Signup',

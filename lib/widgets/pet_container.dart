@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pet_adopt/models/pet.dart';
 import 'package:flutter_pet_adopt/services/constants.dart';
 
 class PetContainer extends StatelessWidget {
   const PetContainer({
     super.key,
+    required this.pet,
+    required this.setFavorite,
   });
+
+  final Pet pet;
+  final VoidCallback setFavorite;
 
   @override
   Widget build(BuildContext context) {
@@ -25,62 +31,62 @@ class PetContainer extends StatelessWidget {
                     topRight: Radius.circular(10),
                     topLeft: Radius.circular(10),
                   ),
-                  child: Image.asset(
-                    'assets/images/dog1.png',
+                  child: Image.network(
+                    pet.images![0],
                     fit: BoxFit.contain,
-                  width: MediaQuery.of(context).size.width,
+                    width: MediaQuery.of(context).size.width,
                   )),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                child: Row(
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
                         Text(
-                          "Kuggu",
-                          style: TextStyle(
+                          pet.name ?? '',
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                             color: mainColor,
                           ),
                         ),
                         Icon(
-                          Icons.male,
+                          pet.gender == "M" ? Icons.male : Icons.female,
                           color: mainColor,
                         ),
                       ],
                     ),
                     Row(
                       children: [
-                        Text("2"),
-                        SizedBox(
+                        Text(pet.age.toString()),
+                        const SizedBox(
                           width: 5,
                         ),
-                        Text("Years"),
+                        const Text("Years"),
                       ],
                     )
                   ],
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 10.0),
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text("Mixed Breed | "),
-                        Text("Adult"),
+                        Text("${pet.breed} | "),
+                        Text(pet.age.toString()),
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Icon(Icons.place_outlined),
-                        Text("2.7Km"),
-                        Text("Away"),
+                        const Icon(Icons.place_outlined),
+                        Text("${pet.color} km "),
+                        const Text("Away"),
                       ],
                     ),
                   ],
@@ -88,14 +94,19 @@ class PetContainer extends StatelessWidget {
               ),
             ],
           ),
+          /*
           Positioned(
               right: 0,
               child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.favorite_border_sharp,
-                    color: Colors.white,
+                  onPressed: setFavorite,
+                  icon: Icon(
+                    pet.favorite
+                        ? Icons.favorite_rounded
+                        : Icons.favorite_border_sharp,
+                    color: pet.favorite ? mainColor : Colors.white,
                   ))),
+
+                  */
         ],
       ),
     );

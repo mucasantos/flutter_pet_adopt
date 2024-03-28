@@ -3,7 +3,9 @@ import 'package:flutter_pet_adopt/services/constants.dart';
 import 'package:flutter_pet_adopt/view/dashboard_screen.dart';
 
 class BaseScreen extends StatefulWidget {
-  const BaseScreen({super.key});
+  const BaseScreen({
+    super.key,
+  });
 
   @override
   State<BaseScreen> createState() => _BaseScreenState();

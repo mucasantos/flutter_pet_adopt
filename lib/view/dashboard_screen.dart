@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pet_adopt/controller/pet_controller.dart';
 import 'package:flutter_pet_adopt/data/data_category.dart';
 import 'package:flutter_pet_adopt/services/constants.dart';
 import 'package:flutter_pet_adopt/view/filter_screen.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_pet_adopt/view/pet_screen.dart';
 import 'package:flutter_pet_adopt/widgets/category_widget.dart';
 import 'package:flutter_pet_adopt/widgets/pet_container.dart';
 import 'package:flutter_pet_adopt/widgets/sized_icon_image.dart';
+import 'package:provider/provider.dart';
 
 class DashBoardScreen extends StatefulWidget {
   const DashBoardScreen({super.key});
@@ -21,6 +23,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   Widget build(BuildContext context) {
     final screenWitdth = MediaQuery.of(context).size.width;
     final int crossAxisCount = screenWitdth > 600 ? 3 : 2;
+
+    //Pets? pets = context.read<PetController>().allPets;
 
     return Scaffold(
       appBar: AppBar(
@@ -160,26 +164,39 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(
-            child: GridView.builder(
-                padding: const EdgeInsets.all(12.0),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: crossAxisCount,
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 5,
-                  childAspectRatio: 0.80,
-                ),
-                itemCount: 6,
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const PetScreen()),
-                        );
-                      },
-                      child: const PetContainer());
-                }),
+            child: Consumer<PetController>(builder: (context, pets, child) {
+              if (pets.allPets?.pets == null) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              return GridView.builder(
+                  padding: const EdgeInsets.all(12.0),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: crossAxisCount,
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 5,
+                    childAspectRatio: 0.78,
+                  ),
+                  itemCount: pets.allPets?.pets?.length ?? 0,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const PetScreen()),
+                          );
+                        },
+                        child: PetContainer(
+                          pet: pets.allPets!.pets![index],
+                          setFavorite: () {
+                            setState(() {
+                              //   pets[index].setFavorite();
+                            });
+                          },
+                        ));
+                  });
+            }),
           ),
         ],
       ),
