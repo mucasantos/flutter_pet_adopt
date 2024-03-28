@@ -3,7 +3,6 @@ import 'package:flutter_pet_adopt/controller/pet_controller.dart';
 import 'package:flutter_pet_adopt/controller/user_controller.dart';
 import 'package:flutter_pet_adopt/services/constants.dart';
 import 'package:flutter_pet_adopt/view/login_screen.dart';
-import 'package:flutter_pet_adopt/widgets/pet_container.dart';
 import 'package:provider/provider.dart';
 
 void main() {

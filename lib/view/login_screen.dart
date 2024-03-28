@@ -1,14 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_pet_adopt/controller/pet_controller.dart';
-import 'package:flutter_pet_adopt/models/pets.dart';
-import 'package:flutter_pet_adopt/service/http_connect.dart';
+
 import 'package:flutter_pet_adopt/services/constants.dart';
 import 'package:flutter_pet_adopt/view/base_screen.dart';
 import 'package:flutter_pet_adopt/view/signup_screen.dart';
 import 'package:flutter_pet_adopt/widgets/app_button.dart';
-import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({

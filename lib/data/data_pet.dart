@@ -1,4 +1,4 @@
-import 'package:flutter_pet_adopt/models/pet.dart';
+//import 'package:flutter_pet_adopt/models/pet.dart';
 /*
 List<Pet> pets = [
   Pet( name: "Kaggu", image: 'assets/images/dog1.png', age: 7, breed: "Mixed Breed", distance: 2.7, gender: "M", time: "Adult"),
