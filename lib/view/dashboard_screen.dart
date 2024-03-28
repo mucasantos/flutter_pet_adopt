@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pet_adopt/data/data_category.dart';
+import 'package:flutter_pet_adopt/data/pet_data.dart';
 import 'package:flutter_pet_adopt/services/constants.dart';
 import 'package:flutter_pet_adopt/view/filter_screen.dart';
 import 'package:flutter_pet_adopt/view/pet_screen.dart';
@@ -168,7 +169,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   mainAxisSpacing: 5,
                   childAspectRatio: 0.80,
                 ),
-                itemCount: 6,
+                itemCount: appPets.length, //passar o tam da minha lista!
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                       onTap: () {
@@ -178,7 +179,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                               builder: (context) => const PetScreen()),
                         );
                       },
-                      child: const PetContainer());
+                      child:  PetContainer(pet: appPets[index],));
                 }),
           ),
         ],

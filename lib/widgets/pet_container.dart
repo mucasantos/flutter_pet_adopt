@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pet_adopt/models/pet.dart';
 import 'package:flutter_pet_adopt/services/constants.dart';
 
 class PetContainer extends StatelessWidget {
   const PetContainer({
     super.key,
+    required this.pet,
   });
+  final Pet pet;
 
   @override
   Widget build(BuildContext context) {
@@ -26,61 +29,57 @@ class PetContainer extends StatelessWidget {
                     topLeft: Radius.circular(10),
                   ),
                   child: Image.asset(
-                    'assets/images/dog1.png',
+                    pet.image,
                     fit: BoxFit.contain,
-                  width: MediaQuery.of(context).size.width,
+                    width: MediaQuery.of(context).size.width,
                   )),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                child: Row(
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
+                    Wrap(
                       children: [
                         Text(
-                          "Kuggu",
-                          style: TextStyle(
-                            fontSize: 16,
+                          pet.name,
+                          style: const TextStyle(
+                            overflow: TextOverflow.fade,
+                            fontSize: 14,
                             fontWeight: FontWeight.w600,
                             color: mainColor,
                           ),
                         ),
-                        Icon(
+                        const Icon(
                           Icons.male,
                           color: mainColor,
                         ),
                       ],
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("2"),
-                        SizedBox(
+                        Text(pet.age.toString()),
+                        const SizedBox(
                           width: 5,
                         ),
-                        Text("Years"),
+                        const Text("Years"),
+                        
+                        Text(" - ${pet.breed}"),
                       ],
                     )
                   ],
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 10.0),
+              Padding(
+                padding: const EdgeInsets.only(left: 5.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text("Mixed Breed | "),
-                        Text("Adult"),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(Icons.place_outlined),
-                        Text("2.7Km"),
-                        Text("Away"),
+                        const Icon(Icons.place_outlined),
+                        Text(pet.place),
                       ],
                     ),
                   ],

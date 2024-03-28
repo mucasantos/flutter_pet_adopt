@@ -50,7 +50,7 @@ class _BaseScreenState extends State<BaseScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.pets),
-            label: 'Adicionar',
+            label: 'Adoções',
             // backgroundColor: Colors.purple,
           ),
           BottomNavigationBarItem(
