@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const String serverAddress = 'petadopt.onrender.com';
+
 const String logoImage = 'assets/images/logo.png';
 const String faceImage = 'assets/images/facebook.png';
 const String googleImage = 'assets/images/google.png';
