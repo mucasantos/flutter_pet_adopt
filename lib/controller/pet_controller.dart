@@ -11,7 +11,7 @@ class PetController extends ChangeNotifier {
   }
 
   getAllPets() async {
-    var response = await HttpConnect.get(Endpoints.pets);
+    var response = await HttpConnect.getData(endpoint: Endpoints.pets);
 
     allPets = Pets.fromJson(response);
 
