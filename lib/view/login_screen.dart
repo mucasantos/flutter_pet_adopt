@@ -6,12 +6,18 @@ import 'package:flutter_pet_adopt/view/signup_screen.dart';
 import 'package:flutter_pet_adopt/widgets/app_button.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({
+  LoginScreen({
     super.key,
   });
 
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    //Este método é o montar a tela! As variáveis aqui dentro, perdem o valor
+    // ao ser recriada!
+
     return Scaffold(
       body: SingleChildScrollView(
         child: ConstrainedBox(
@@ -60,9 +66,10 @@ class LoginScreen extends StatelessWidget {
                         style: titleStyle,
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.all(16.0),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
                       child: TextField(
+                        controller: emailController,
                         decoration: textFieldDecoration,
                       ),
                     ),
@@ -73,9 +80,10 @@ class LoginScreen extends StatelessWidget {
                         style: titleStyle,
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.all(16.0),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
                       child: TextField(
+                        controller: passwordController,
                         decoration: textFieldDecoration,
                       ),
                     ),
@@ -95,8 +103,8 @@ class LoginScreen extends StatelessWidget {
                       onclick: () async {
                         await HttpConnect.postData(
                           data: {
-                            'email': 'samuca@email.com',
-                            'password': '12345678'
+                            'email': emailController.text,
+                            'password': passwordController.text
                           },
                           endpoint: '/users/login',
                         );

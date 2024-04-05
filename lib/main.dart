@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         splashFactory: NoSplash.splashFactory,
       ),
-      home: const LoginScreen(),
+      home:  LoginScreen(),
     );
   }
 }

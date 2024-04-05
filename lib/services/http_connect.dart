@@ -4,6 +4,7 @@ import 'package:flutter_pet_adopt/services/constants.dart';
 import 'package:http/http.dart' as http;
 
 class HttpConnect {
+  
   static getData({ required String endpoint}) async {
     var url = Uri.https(serverAddress, endpoint);
     var client = http.Client();
