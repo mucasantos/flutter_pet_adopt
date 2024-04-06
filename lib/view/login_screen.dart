@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pet_adopt/services/api_endpoints.dart';
 import 'package:flutter_pet_adopt/services/constants.dart';
 import 'package:flutter_pet_adopt/services/http_connect.dart';
 import 'package:flutter_pet_adopt/view/base_screen.dart';
@@ -101,19 +102,29 @@ class LoginScreen extends StatelessWidget {
                     ),
                     AppButton(
                       onclick: () async {
-                        await HttpConnect.postData(
+                        //Posso fazer validacao...
+                        Map<String, dynamic> data = await HttpConnect.postData(
                           data: {
                             'email': emailController.text,
                             'password': passwordController.text
                           },
-                          endpoint: '/users/login',
+                          endpoint: Endpoints.login,
                         );
-                        /*
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const BaseScreen()),
-                        );*/
+
+
+                        if (data["statusCode"] != 200) {
+                          var snackBar = SnackBar(
+                            content: Text(data["data"]['message']),
+                          );
+
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        } else {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const BaseScreen()),
+                          );
+                        }
                       },
                     ),
                   ],
