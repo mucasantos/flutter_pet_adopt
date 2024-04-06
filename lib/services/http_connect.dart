@@ -27,11 +27,7 @@ class HttpConnect {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: body);
-    // print('Response status: ${response.statusCode}');
-    // print('Response body: ${response.body}');
-
-//decodificar e transf em json
-
+  //decodificar e transf em json
     var decodedResponse = jsonDecode(response.body); // TRansforma String em Json
 
     var result = {
