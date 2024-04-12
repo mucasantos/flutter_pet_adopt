@@ -23,16 +23,17 @@ class PetContainer extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              ClipRRect(
+               ClipRRect(
                   borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(10),
                     topLeft: Radius.circular(10),
                   ),
-                  child: Image.asset(
-                    pet.image,
+                  child: Image.network(
+                    pet.images![0] ,
                     fit: BoxFit.contain,
                     width: MediaQuery.of(context).size.width,
-                  )),
+                  ) 
+                  ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Column(
@@ -41,7 +42,7 @@ class PetContainer extends StatelessWidget {
                     Wrap(
                       children: [
                         Text(
-                          pet.name,
+                          pet.name!,
                           style: const TextStyle(
                             overflow: TextOverflow.fade,
                             fontSize: 14,
@@ -64,22 +65,22 @@ class PetContainer extends StatelessWidget {
                         ),
                         const Text("Years"),
                         
-                        Text(" - ${pet.breed}"),
+                        Text(" - ${pet.name}"),
                       ],
                     )
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 5.0),
+              const Padding(
+                padding: EdgeInsets.only(left: 5.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const Icon(Icons.place_outlined),
-                        Text(pet.place),
+                        Icon(Icons.place_outlined),
+                       // Text(pet.user!.name ?? ''),
                       ],
                     ),
                   ],

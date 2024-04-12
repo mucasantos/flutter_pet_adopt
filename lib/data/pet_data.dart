@@ -1,6 +1,8 @@
-import 'package:flutter_pet_adopt/data/data_category.dart';
 import 'package:flutter_pet_adopt/models/pet.dart';
 
+
+List<Pet> appPets = [];
+/*
 List<Pet> appPets = [
   Pet(
     image: 'assets/images/dog1.png',
@@ -57,3 +59,4 @@ List<Pet> appPets = [
     place: "Osasco",
   ),
 ];
+*/

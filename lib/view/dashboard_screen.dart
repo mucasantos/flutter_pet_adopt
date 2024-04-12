@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pet_adopt/data/data_category.dart';
 import 'package:flutter_pet_adopt/data/pet_data.dart';
+import 'package:flutter_pet_adopt/models/pets.dart';
 import 'package:flutter_pet_adopt/services/constants.dart';
+import 'package:flutter_pet_adopt/services/http_connect.dart';
 import 'package:flutter_pet_adopt/view/filter_screen.dart';
 import 'package:flutter_pet_adopt/view/pet_screen.dart';
 import 'package:flutter_pet_adopt/widgets/category_widget.dart';
@@ -17,6 +19,7 @@ class DashBoardScreen extends StatefulWidget {
 
 class _DashBoardScreenState extends State<DashBoardScreen> {
   int? chipValue = 0;
+  Pets? serverPets;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +63,16 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         ),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () async {
+                var response = await HttpConnect.getData(endpoint: "/pet/pets");
+                print("response==> PETS");
+                //Map (json)
+
+                setState(() {
+                    serverPets = Pets.fromJson(response);
+                });
+
+              },
               icon: const Icon(
                 Icons.notifications_none,
                 size: 30,
@@ -160,6 +172,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          if (serverPets !=null)
           Expanded(
             child: GridView.builder(
                 padding: const EdgeInsets.all(12.0),
@@ -169,7 +182,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   mainAxisSpacing: 5,
                   childAspectRatio: 0.80,
                 ),
-                itemCount: appPets.length, //passar o tam da minha lista!
+                itemCount: serverPets?.pets!.length, //passar o tam da minha lista!
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                       onTap: () {
@@ -179,7 +192,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                               builder: (context) => const PetScreen()),
                         );
                       },
-                      child:  PetContainer(pet: appPets[index],));
+                      child: PetContainer(
+                        pet: serverPets!.pets![index],
+                      ));
                 }),
           ),
         ],
