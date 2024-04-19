@@ -64,12 +64,12 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         actions: [
           IconButton(
               onPressed: () async {
-                var response = await HttpConnect.getData(endpoint: "/pet/pets");
+               // var response = await HttpConnect.getData(endpoint: "/pet/pets");
                 print("response==> PETS");
                 //Map (json)
 
                 setState(() {
-                    serverPets = Pets.fromJson(response);
+                  //  serverPets = Pets.fromJson(response);
                 });
 
               },

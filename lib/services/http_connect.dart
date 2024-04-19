@@ -4,19 +4,25 @@ import 'package:flutter_pet_adopt/services/constants.dart';
 import 'package:http/http.dart' as http;
 
 class HttpConnect {
-  static Future<Map<String, dynamic>> getData({required String endpoint}) async {
-    var url = Uri.https(serverAddress, endpoint);
+  static Future<Map<String, dynamic>> getData({
+    required String endpoint,
+    required int page,
+  }) async {
+
+    Map<String, dynamic> params = {"page": page.toString()};
+    //var url = Uri.https(serverAddress, endpoint);
+    var url = Uri.https(serverAddress, endpoint, params);
+
     var client = http.Client();
 
     try {
       var response = await client.get(url);
-      print( "HTTP Connect==>");
-      return jsonDecode(response.body);
+       return jsonDecode(response.body);
     } catch (e) {
-      print(e);
+      rethrow;
     }
 
-    return {};
+    //return {};
   }
 
   static Future<Map<String, dynamic>> postData(
@@ -31,13 +37,11 @@ class HttpConnect {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: body);
-  //decodificar e transf em json
-    var decodedResponse = jsonDecode(response.body); // TRansforma String em Json
+    //decodificar e transf em json
+    var decodedResponse =
+        jsonDecode(response.body); // TRansforma String em Json
 
-    var result = {
-      'data': decodedResponse,
-      'statusCode': response.statusCode
-    }; 
+    var result = {'data': decodedResponse, 'statusCode': response.statusCode};
 
     return result; //String json
   }
