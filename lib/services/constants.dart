@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 //const String serverAddress = 'petadopt.onrender.com';
-const String serverAddress = 'rickandmortyapi.com';
+const String serverAddress = 'https://rickandmortyapi.com/';
 
 const String logoImage = 'assets/images/logo.png';
 const String faceImage = 'assets/images/facebook.png';

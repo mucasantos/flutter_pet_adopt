@@ -8,7 +8,6 @@ class HttpConnect {
     required String endpoint,
     required int page,
   }) async {
-
     Map<String, dynamic> params = {"page": page.toString()};
     //var url = Uri.https(serverAddress, endpoint);
     var url = Uri.https(serverAddress, endpoint, params);
@@ -17,7 +16,7 @@ class HttpConnect {
 
     try {
       var response = await client.get(url);
-       return jsonDecode(response.body);
+      return jsonDecode(response.body); //TRansformar em JSON
     } catch (e) {
       rethrow;
     }
