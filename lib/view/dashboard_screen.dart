@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_pet_adopt/services/constants.dart';
 import 'package:flutter_pet_adopt/view/filter_screen.dart';
@@ -15,6 +14,7 @@ class DashBoardScreen extends StatefulWidget {
 
 class _DashBoardScreenState extends State<DashBoardScreen> {
   int? chipValue = 0;
+  TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -72,40 +72,14 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextField(
+                  enabled: true,
+                  controller: searchController,
                   decoration: InputDecoration(
-                    suffixIcon: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        const SizedIconImage(
-                          imageAsset: iconSearch,
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        const SizedIconImage(
-                          imageAsset: iconVertical,
-                          width: 3,
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const FilterScreen()),
-                            );
-                          },
-                          child: const SizedIconImage(
-                            imageAsset: iconFilter,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                      ],
-                    ),
+                    suffixIcon: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.search,
+                        )),
                     labelText: 'Search',
                     contentPadding: const EdgeInsets.all(10),
                     focusedBorder: const OutlineInputBorder(
