@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pet_adopt/models/pet.dart';
-import 'package:flutter_pet_adopt/services/constants.dart';
+import 'package:flutter_pet_adopt/app_data/constants.dart';
 
 class PetContainer extends StatelessWidget {
   const PetContainer({
@@ -33,8 +33,9 @@ class PetContainer extends StatelessWidget {
                   ),
                   child: Image.network(
                     pet.images![0],
-                    fit: BoxFit.contain,
+                    fit: BoxFit.cover,
                     width: MediaQuery.of(context).size.width,
+                    height: 120,
                   )),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pet_adopt/services/constants.dart';
+import 'package:flutter_pet_adopt/app_data/constants.dart';
 
 class FilterScreen extends StatefulWidget {
   const FilterScreen({super.key});
@@ -22,12 +22,18 @@ class _FilterScreenState extends State<FilterScreen> {
           ),
         ),
       ),
-      body: const Column(children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal:  16.0, ),
-          child: Divider(color: mainColor,),
-        )
-      ],),
+      body: const Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 16.0,
+            ),
+            child: Divider(
+              color: mainColor,
+            ),
+          )
+        ],
+      ),
     );
   }
 }

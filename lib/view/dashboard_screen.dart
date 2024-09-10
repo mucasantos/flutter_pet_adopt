@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pet_adopt/controller/pet_controller.dart';
 import 'package:flutter_pet_adopt/data/data_category.dart';
-import 'package:flutter_pet_adopt/services/constants.dart';
-import 'package:flutter_pet_adopt/view/filter_screen.dart';
+import 'package:flutter_pet_adopt/app_data/constants.dart';
 import 'package:flutter_pet_adopt/view/pet_screen.dart';
 import 'package:flutter_pet_adopt/widgets/category_widget.dart';
 import 'package:flutter_pet_adopt/widgets/pet_container.dart';
-import 'package:flutter_pet_adopt/widgets/sized_icon_image.dart';
 import 'package:provider/provider.dart';
 
 class DashBoardScreen extends StatefulWidget {
@@ -78,39 +76,11 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextField(
                   decoration: InputDecoration(
-                    suffixIcon: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        const SizedIconImage(
-                          imageAsset: iconSearch,
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        const SizedIconImage(
-                          imageAsset: iconVertical,
-                          width: 3,
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const FilterScreen()),
-                            );
-                          },
-                          child: const SizedIconImage(
-                            imageAsset: iconFilter,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                      ],
-                    ),
+                    suffixIcon: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.search,
+                        )),
                     labelText: 'Search',
                     contentPadding: const EdgeInsets.all(10),
                     focusedBorder: const OutlineInputBorder(
@@ -173,9 +143,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   padding: const EdgeInsets.all(12.0),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: crossAxisCount,
-                    crossAxisSpacing: 5,
-                    mainAxisSpacing: 5,
-                    childAspectRatio: 0.78,
+                    crossAxisSpacing: 1,
+                    mainAxisSpacing: 1,
+                    childAspectRatio: 0.75,
                   ),
                   itemCount: pets.allPets?.pets?.length ?? 0,
                   itemBuilder: (BuildContext context, int index) {

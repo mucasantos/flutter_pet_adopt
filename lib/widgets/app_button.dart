@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pet_adopt/services/constants.dart';
+import 'package:flutter_pet_adopt/app_data/constants.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton({
@@ -8,8 +8,8 @@ class AppButton extends StatelessWidget {
     required this.onclick,
   });
 
- final String? title;
- final VoidCallback onclick;
+  final String? title;
+  final VoidCallback onclick;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,12 +27,10 @@ class AppButton extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       )),
                   onPressed: onclick,
-                  child:  Text(
+                  child: Text(
                     title ?? "Login",
                     style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w400
-                    ),
+                        color: Colors.white, fontWeight: FontWeight.w400),
                   ))),
         ],
       ),

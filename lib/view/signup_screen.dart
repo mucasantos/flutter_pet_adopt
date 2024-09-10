@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pet_adopt/services/constants.dart';
+import 'package:flutter_pet_adopt/app_data/constants.dart';
 import 'package:flutter_pet_adopt/view/login_screen.dart';
 import 'package:flutter_pet_adopt/widgets/app_button.dart';
 

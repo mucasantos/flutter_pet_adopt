@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pet_adopt/services/constants.dart';
+import 'package:flutter_pet_adopt/app_data/constants.dart';
 
 class CategoryWidget extends StatelessWidget {
   const CategoryWidget({
@@ -8,7 +8,7 @@ class CategoryWidget extends StatelessWidget {
     required this.index,
     required this.name,
     required this.chipValue,
-     this.onSelected,
+    this.onSelected,
   });
   final String image;
   final int index;
@@ -19,7 +19,7 @@ class CategoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       child: ChoiceChip(
         side: const BorderSide(
           width: 0.0,
@@ -37,11 +37,10 @@ class CategoryWidget extends StatelessWidget {
         showCheckmark: false,
         selected: chipValue == index,
         onSelected: onSelected,
-       
-        avatar:  CircleAvatar(
+        avatar: CircleAvatar(
           backgroundImage: AssetImage(image),
         ),
-        label:  Text(
+        label: Text(
           name,
         ),
       ),
