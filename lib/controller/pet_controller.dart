@@ -5,16 +5,22 @@ import 'package:flutter_pet_adopt/service/http_connect.dart';
 
 class PetController extends ChangeNotifier {
   Pets? allPets;
+  String? errorMessage;
 
   PetController() {
     getAllPets();
   }
 
   getAllPets() async {
-    var response = await HttpConnect.getData(endpoint: Endpoints.pets);
+    try {
+      var response = await HttpConnect.getData(endpoint: Endpoints.pets);
 
-    allPets = Pets.fromJson(response);
+      allPets = Pets.fromJson(response);
 
-    notifyListeners();
+      notifyListeners();
+    } catch (e) {
+      errorMessage = e.toString();
+      notifyListeners();
+    }
   }
 }

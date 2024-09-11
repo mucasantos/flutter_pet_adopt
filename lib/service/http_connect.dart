@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_pet_adopt/service/api_connect.dart';
+import 'package:flutter_pet_adopt/service/http_error_handler.dart';
 import 'package:http/http.dart' as http;
 
 class HttpConnect {
@@ -10,8 +11,10 @@ class HttpConnect {
     var client = http.Client();
     try {
       var response = await client.get(url);
-      print(response.body);
 
+      if (response.statusCode != 200) {
+        throw httpErorHandler(response);
+      }
       var decodeResp = jsonDecode(response.body) as Map<String, dynamic>;
       return decodeResp;
     } catch (e) {

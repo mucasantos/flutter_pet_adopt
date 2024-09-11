@@ -135,8 +135,14 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         children: [
           Expanded(
             child: Consumer<PetController>(builder: (context, pets, child) {
-              if (pets.allPets?.pets == null) {
+              if (pets.allPets?.pets == null && pets.errorMessage == null) {
                 return const Center(child: CircularProgressIndicator());
+              }
+              if (pets.errorMessage != null) {
+                return Center(
+                    child: Text(
+                  pets.errorMessage!,
+                ));
               }
 
               return GridView.builder(
