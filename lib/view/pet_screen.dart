@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+// Places where you have syntax error then just do this
 import 'package:flutter/material.dart';
 import 'package:flutter_pet_adopt/app_data/constants.dart';
 import 'package:flutter_pet_adopt/widgets/app_button.dart';
