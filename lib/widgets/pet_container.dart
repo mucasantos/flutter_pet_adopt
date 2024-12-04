@@ -25,6 +25,7 @@ class PetContainer extends StatelessWidget {
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
                   borderRadius: const BorderRadius.only(
@@ -41,6 +42,7 @@ class PetContainer extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
@@ -68,21 +70,8 @@ class PetContainer extends StatelessWidget {
                         ),
                         const Text("Years"),
                       ],
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(pet.breed ?? "Sem raça"),
-                      ],
                     ),
+                    Text(pet.breed ?? "Sem raça"),
                     Text("Cor: ${pet.color} "),
                   ],
                 ),

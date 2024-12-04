@@ -151,20 +151,21 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     crossAxisCount: crossAxisCount,
                     crossAxisSpacing: 1,
                     mainAxisSpacing: 1,
-                    childAspectRatio: 0.75,
+                    childAspectRatio: 0.8,
                   ),
                   itemCount: pets.allPets?.pets?.length ?? 0,
                   itemBuilder: (BuildContext context, int index) {
+                    final pet = pets.allPets!.pets![index];
                     return GestureDetector(
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const PetScreen()),
+                                builder: (context) => PetScreen(pet: pet)),
                           );
                         },
                         child: PetContainer(
-                          pet: pets.allPets!.pets![index],
+                          pet: pet,
                           setFavorite: () {
                             setState(() {
                               //   pets[index].setFavorite();
