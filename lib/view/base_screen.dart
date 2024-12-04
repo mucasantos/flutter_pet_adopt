@@ -16,6 +16,13 @@ class _BaseScreenState extends State<BaseScreen> {
   int _currentPageIndex = 0;
 
   @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,

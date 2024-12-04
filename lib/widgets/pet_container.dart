@@ -44,12 +44,14 @@ class PetContainer extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Text(
-                          pet.name ?? '',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: mainColor,
+                        Expanded(
+                          child: Text(
+                            pet.name ?? '',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: mainColor,
+                            ),
                           ),
                         ),
                         Icon(
@@ -78,18 +80,10 @@ class PetContainer extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text("${pet.breed} | "),
-                        Text(pet.age.toString()),
+                        Text(pet.breed ?? "Sem raça"),
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Icon(Icons.place_outlined),
-                        Text("${pet.color} km "),
-                        const Text("Away"),
-                      ],
-                    ),
+                    Text("Cor: ${pet.color} "),
                   ],
                 ),
               ),
