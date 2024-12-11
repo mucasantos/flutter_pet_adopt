@@ -26,9 +26,10 @@ class PetScreen extends StatelessWidget {
               stretch: true,
               flexibleSpace: CarouselSlider(
                 options: CarouselOptions(
+                  autoPlayInterval: const Duration(seconds: 2),
                   viewportFraction: 1,
                   height: MediaQuery.of(context).size.height * .44,
-                  autoPlay: true,
+                  autoPlay: pet.images!.length > 1,
                 ),
                 items: pet.images!.map((image) {
                   return Builder(
@@ -142,10 +143,10 @@ class PetScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.all(16.0),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
                       child: Text(
-                        "Legs foi resgatada em Itaquaquecetuba, atropelada, duas patas quebradas. Chovia muito naquele dia. Encontrei ela jogada num canto de uma estradinha de terra, ensopada. Tremia muito, não sei se de medo, frio, dor, ou tudo isso junto. Aquela cachorra porte grande, pelo grosso e desgranhado, preta , de olhar assustado, não resistiu um minuto aos movimentos para colocá-la no carro. Enquanto eu saia com o carro me dei conta de que era 20 de dezembro, e que eu não tinha onde hospedá-la. Devido às festas de fim de ano, os hotéis e creches estão lotado e eu não tinha  vaga no Santo Pet.",
+                        pet.story ?? "",
                         textAlign: TextAlign.justify,
                       ),
                     ),

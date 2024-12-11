@@ -49,6 +49,8 @@ class PetContainer extends StatelessWidget {
                         Expanded(
                           child: Text(
                             pet.name ?? '',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
@@ -57,7 +59,7 @@ class PetContainer extends StatelessWidget {
                           ),
                         ),
                         Icon(
-                          pet.gender == "M" ? Icons.male : Icons.female,
+                          pet.gender == "male" ? Icons.male : Icons.female,
                           color: mainColor,
                         ),
                       ],
@@ -71,8 +73,13 @@ class PetContainer extends StatelessWidget {
                         const Text("Years"),
                       ],
                     ),
-                    Text(pet.breed ?? "Sem raça"),
-                    Text("Cor: ${pet.color} "),
+                    Text(
+                      pet.breed ?? "Sem raça",
+                    ),
+                    Text(
+                      "Cor: ${pet.color} ",
+                      maxLines: 1,
+                    ),
                   ],
                 ),
               ),

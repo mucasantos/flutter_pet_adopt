@@ -15,6 +15,7 @@ class Pet {
   int? iV;
   String? gender;
   String? breed;
+  String? story;
 
   Pet({
     this.sId,
@@ -31,6 +32,7 @@ class Pet {
     this.iV,
     this.gender,
     this.breed,
+    this.story,
   });
 
   Pet.fromJson(Map<String, dynamic> json) {
@@ -47,6 +49,7 @@ class Pet {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     gender = json['gender'];
+    story = json['story'];
 
     iV = json['__v'];
   }
@@ -68,6 +71,7 @@ class Pet {
     data['available'] = available;
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
+    data['story'] = story;
     data['__v'] = iV;
     return data;
   }

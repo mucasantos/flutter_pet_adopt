@@ -22,8 +22,6 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     final screenWitdth = MediaQuery.of(context).size.width;
     final int crossAxisCount = screenWitdth > 600 ? 3 : 2;
 
-    //Pets? pets = context.read<PetController>().allPets;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -105,27 +103,36 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 100,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return CategoryWidget(
-                      image: categories[index].image,
-                      index: index,
-                      name: categories[index].name,
-                      chipValue: chipValue,
-                      onSelected: (bool selected) {
-                        setState(() {
-                          chipValue = selected ? index : null;
-                        });
-                      },
+              FutureBuilder(
+                  future: PetController().getCategories(),
+                  builder: (context, snapshot) {
+                    if (snapshot.data == null) {
+                      return const SizedBox(
+                          height: 50, child: CircularProgressIndicator());
+                    }
+
+                    return SizedBox(
+                      height: 100,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: snapshot.data?.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return CategoryWidget(
+                            image: snapshot.data![index].image!,
+                            index: index,
+                            name: snapshot.data![index].name,
+                            chipValue: chipValue,
+                            onSelected: (bool selected) {
+                              setState(() {
+                                chipValue = selected ? index : null;
+                              });
+                            },
+                          );
+                        },
+                      ),
                     );
-                  },
-                ),
-              )
+                  })
             ],
           ),
         ),

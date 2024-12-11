@@ -28,7 +28,7 @@ class CategoryWidget extends StatelessWidget {
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(
-              15.0,
+              10.0,
             ),
           ),
         ),
@@ -38,10 +38,13 @@ class CategoryWidget extends StatelessWidget {
         selected: chipValue == index,
         onSelected: onSelected,
         avatar: CircleAvatar(
-          backgroundImage: AssetImage(image),
+          minRadius: 50,
+          backgroundImage: NetworkImage(
+            image,
+          ),
         ),
         label: Text(
-          name,
+          name.toUpperCase(),
         ),
       ),
     );
