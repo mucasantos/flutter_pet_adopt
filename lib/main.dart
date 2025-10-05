@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pet_adopt/services/constants.dart';
-import 'package:flutter_pet_adopt/view/login_screen.dart';
 import 'package:flutter_pet_adopt/view/revisao/review_apicall.dart';
 
 void main() {
@@ -27,7 +26,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         splashFactory: NoSplash.splashFactory,
       ),
-      home:  const ReviewApiCall(),
+      home: const ReviewApiCall(),
     );
   }
 }

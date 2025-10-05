@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pet_adopt/services/http_connect.dart';
 import 'package:flutter_pet_adopt/services/http_manager.dart';
 import 'package:flutter_pet_adopt/view/revisao/model_ricky.dart';
 import 'package:flutter_pet_adopt/view/revisao/widget_ricky.dart';
@@ -20,6 +19,7 @@ class _ReviewApiCallState extends State<ReviewApiCall> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          leading: const Icon(Icons.abc),
           title: Text("Aula revisão (Pg.$page)"),
         ),
         body: Center(
