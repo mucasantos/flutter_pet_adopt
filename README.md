@@ -4,8 +4,7 @@ A new Flutter project.
 
 # design inspiration
 
-https://www.figma.com/community/file/1275694472706602668/adopt-me
-
+https://www.figma.com/pt-br/comunidade/file/989816758719547162/adopt-me
 
 ## Getting Started
 
