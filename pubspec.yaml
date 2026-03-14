@@ -35,12 +35,16 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   carousel_slider: ^5.0.0
-  http:
-  provider: ^6.1.2
+  equatable: ^2.0.5
+  flutter_bloc: ^9.1.0
+  get_it: ^8.0.3
+  http: ^1.2.1
 
 dev_dependencies:
+  bloc_test: ^10.0.0
   flutter_test:
     sdk: flutter
+  mocktail: ^1.0.4
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_pet_adopt/app_data/constants.dart';
-import 'package:flutter_pet_adopt/view/base_screen.dart';
+import 'package:flutter_pet_adopt/core/presentation/widgets/app_button.dart';
+import 'package:flutter_pet_adopt/features/app_shell/presentation/pages/app_shell_root.dart';
 import 'package:flutter_pet_adopt/view/signup_screen.dart';
-import 'package:flutter_pet_adopt/widgets/app_button.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({
@@ -72,11 +72,12 @@ class LoginScreen extends StatelessWidget {
                     ],
                   ),
                   AppButton(
-                    onclick: () async {
+                    onPressed: () async {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const BaseScreen()),
+                          builder: (context) => const AppShellRoot(),
+                        ),
                       );
                     },
                   ),

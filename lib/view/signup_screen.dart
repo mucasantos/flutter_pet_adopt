@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pet_adopt/app_data/constants.dart';
+import 'package:flutter_pet_adopt/core/presentation/widgets/app_button.dart';
 import 'package:flutter_pet_adopt/view/login_screen.dart';
-import 'package:flutter_pet_adopt/widgets/app_button.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({
@@ -64,7 +64,7 @@ class SignupScreen extends StatelessWidget {
           ),
           AppButton(
             title: "SignUp",
-            onclick: () {},
+            onPressed: () {},
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
