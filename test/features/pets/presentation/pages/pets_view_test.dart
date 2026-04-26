@@ -2,6 +2,8 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_pet_adopt/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:flutter_pet_adopt/features/auth/presentation/cubit/auth_state.dart';
 import 'package:flutter_pet_adopt/features/pets/presentation/cubit/pets_cubit.dart';
 import 'package:flutter_pet_adopt/features/pets/presentation/cubit/pets_state.dart';
 import 'package:flutter_pet_adopt/features/pets/presentation/pages/pets_view.dart';
@@ -11,26 +13,48 @@ import '../../../../helpers/test_data.dart';
 
 class MockPetsCubit extends MockCubit<PetsState> implements PetsCubit {}
 
+class MockAuthCubit extends MockCubit<AuthState> implements AuthCubit {}
+
 void main() {
   late MockPetsCubit cubit;
+  late MockAuthCubit authCubit;
 
   setUpAll(() {
     registerFallbackValue(const PetsState());
+    registerFallbackValue(const AuthState());
   });
 
   setUp(() {
     cubit = MockPetsCubit();
+    authCubit = MockAuthCubit();
     when(() => cubit.selectCategory(any())).thenAnswer((_) {});
     when(() => cubit.updateSearch(any())).thenAnswer((_) {});
     when(() => cubit.retry()).thenAnswer((_) async {});
+    when(() => authCubit.state).thenReturn(
+      const AuthState(
+        status: AuthStatus.authenticated,
+        session: sampleAuthSession,
+      ),
+    );
+    whenListen(
+      authCubit,
+      const Stream<AuthState>.empty(),
+      initialState: const AuthState(
+        status: AuthStatus.authenticated,
+        session: sampleAuthSession,
+      ),
+    );
   });
 
   Future<void> pumpSubject(WidgetTester tester) {
     return tester.pumpWidget(
       MaterialApp(
-        home: BlocProvider<PetsCubit>.value(
-          value: cubit,
-          child: const PetsView(),
+        home: BlocProvider<AuthCubit>.value(
+          value: authCubit,
+          child: BlocProvider<PetsCubit>.value(
+            value: cubit,
+            child: const PetsView(),
+          ),
         ),
       ),
     );

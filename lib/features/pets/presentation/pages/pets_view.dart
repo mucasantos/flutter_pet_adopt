@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_pet_adopt/app_data/constants.dart';
+import 'package:flutter_pet_adopt/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:flutter_pet_adopt/features/auth/presentation/cubit/auth_state.dart';
 import 'package:flutter_pet_adopt/features/pets/domain/entities/pet_entity.dart';
 import 'package:flutter_pet_adopt/features/pets/presentation/cubit/pets_cubit.dart';
 import 'package:flutter_pet_adopt/features/pets/presentation/cubit/pets_state.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_pet_adopt/features/pets/presentation/widgets/empty_pets_
 import 'package:flutter_pet_adopt/features/pets/presentation/widgets/pet_card.dart';
 import 'package:flutter_pet_adopt/features/pets/presentation/widgets/pets_error_states.dart';
 import 'package:flutter_pet_adopt/features/pets/presentation/widgets/pets_header.dart';
+import 'package:flutter_pet_adopt/features/profile/presentation/widgets/profile_avatar.dart';
 
 class PetsView extends StatelessWidget {
   const PetsView({super.key});
@@ -27,8 +29,15 @@ class PetsView extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: Padding(
-          padding: const EdgeInsets.only(left: 16),
-          child: Image.asset(userProfile),
+          padding: const EdgeInsets.only(left: 12),
+          child: BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              return ProfileAvatar(
+                imageUrl: state.session?.user.imageUrl,
+                radius: 20,
+              );
+            },
+          ),
         ),
         title: const PetsHeader(),
         actions: const [

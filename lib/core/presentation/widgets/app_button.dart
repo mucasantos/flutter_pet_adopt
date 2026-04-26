@@ -6,10 +6,12 @@ class AppButton extends StatelessWidget {
     super.key,
     this.title,
     required this.onPressed,
+    this.isLoading = false,
   });
 
   final String? title;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +32,23 @@ class AppButton extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              onPressed: onPressed,
-              child: Text(
-                title ?? 'Login',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
+              onPressed: isLoading ? null : onPressed,
+              child: isLoading
+                  ? const SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2.5,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    )
+                  : Text(
+                      title ?? 'Login',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
             ),
           ),
         ],

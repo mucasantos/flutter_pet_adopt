@@ -1,3 +1,7 @@
+import 'package:flutter_pet_adopt/features/auth/data/models/auth_session_model.dart';
+import 'package:flutter_pet_adopt/features/auth/data/models/auth_user_model.dart';
+import 'package:flutter_pet_adopt/features/auth/domain/entities/auth_session_entity.dart';
+import 'package:flutter_pet_adopt/features/auth/domain/entities/auth_user_entity.dart';
 import 'package:flutter_pet_adopt/features/pets/data/models/category_model.dart';
 import 'package:flutter_pet_adopt/features/pets/data/models/pet_model.dart';
 import 'package:flutter_pet_adopt/features/pets/domain/entities/category_entity.dart';
@@ -93,3 +97,29 @@ const sampleDogPet = PetEntity(
 
 const samplePets = [samplePet, sampleDogPet];
 const sampleCategories = [sampleCategory, sampleDogCategory];
+
+const sampleAuthUserModel = AuthUserModel(
+  id: 'user-1',
+  name: 'Samuel Santos',
+  email: 'samuel@example.com',
+  phone: '+55 11 99999-0000',
+  imageUrl: 'https://example.com/avatar.png',
+);
+
+const sampleAuthSessionModel = AuthSessionModel(
+  token: 'token-1234567890',
+  user: sampleAuthUserModel,
+);
+
+const sampleAuthUser = AuthUserEntity(
+  id: 'user-1',
+  name: 'Samuel Santos',
+  email: 'samuel@example.com',
+  phone: '+55 11 99999-0000',
+  imageUrl: 'https://example.com/avatar.png',
+);
+
+const sampleAuthSession = AuthSessionEntity(
+  token: 'token-1234567890',
+  user: sampleAuthUser,
+);

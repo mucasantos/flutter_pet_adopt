@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pet_adopt/app_data/constants.dart';
 import 'package:flutter_pet_adopt/core/presentation/widgets/app_button.dart';
-import 'package:flutter_pet_adopt/view/login_screen.dart';
+import 'package:flutter_pet_adopt/features/auth/presentation/pages/login_page.dart';
 
-class SignupScreen extends StatelessWidget {
-  const SignupScreen({
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({
     super.key,
   });
 
@@ -92,7 +92,8 @@ class SignupScreen extends StatelessWidget {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const LoginScreen()),
+                          builder: (context) => const LoginPage(),
+                        ),
                       );
                     },
                     child: const Text(

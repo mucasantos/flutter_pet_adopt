@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pet_adopt/app_data/constants.dart';
 import 'package:flutter_pet_adopt/features/app_shell/presentation/cubit/app_shell_cubit.dart';
 import 'package:flutter_pet_adopt/features/pets/presentation/pages/pets_view.dart';
+import 'package:flutter_pet_adopt/features/profile/presentation/pages/profile_page.dart';
 
 class AppShellPage extends StatelessWidget {
   const AppShellPage({
@@ -25,10 +26,7 @@ class AppShellPage extends StatelessWidget {
             title: 'Add Pet',
             subtitle: 'Add-pet flow is intentionally deferred.',
           ),
-          _ShellPlaceholder(
-            title: 'Profile',
-            subtitle: 'Profile flow is intentionally deferred.',
-          ),
+          ProfilePage(),
         ];
 
     return BlocBuilder<AppShellCubit, int>(
