@@ -1,33 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pet_adopt/services/constants.dart';
-import 'package:flutter_pet_adopt/view/login_screen.dart';
-import 'package:flutter_pet_adopt/view/rolagem.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_pet_adopt/app_data/constants.dart';
+import 'package:flutter_pet_adopt/core/di/injection_container.dart';
+import 'package:flutter_pet_adopt/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:flutter_pet_adopt/features/auth/presentation/pages/auth_gate_page.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await setupDependencies();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(
+    return BlocProvider<AuthCubit>(
+      create: (_) => sl<AuthCubit>()..restoreSession(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Adopt Me',
+        theme: ThemeData(
+          appBarTheme: const AppBarTheme(
             iconTheme: IconThemeData(
-          color: mainColor,
-          size: 30,
-        )),
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 58, 150, 183)),
-        useMaterial3: true,
-        splashFactory: NoSplash.splashFactory,
+              color: mainColor,
+              size: 30,
+            ),
+          ),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 58, 150, 183),
+          ),
+          useMaterial3: true,
+          splashFactory: NoSplash.splashFactory,
+        ),
+        home: const AuthGatePage(),
       ),
-      home:  Rolagem(),
     );
   }
 }

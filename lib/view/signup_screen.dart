@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pet_adopt/services/constants.dart';
-import 'package:flutter_pet_adopt/view/base_screen.dart';
-import 'package:flutter_pet_adopt/view/login_screen.dart';
-import 'package:flutter_pet_adopt/widgets/app_button.dart';
+import 'package:flutter_pet_adopt/app_data/constants.dart';
+import 'package:flutter_pet_adopt/core/presentation/widgets/app_button.dart';
+import 'package:flutter_pet_adopt/features/auth/presentation/pages/login_page.dart';
 
-class SignupScreen extends StatelessWidget {
-  const SignupScreen({
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({
     super.key,
   });
 
@@ -18,132 +17,99 @@ class SignupScreen extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          Expanded(
-            flex: 2,
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 30,
+          Column(
+            children: [
+              const SizedBox(
+                height: 30,
+              ),
+              Image.asset(
+                dogAnimaOne,
+              ),
+              const Text(
+                "Adopt Me",
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 255, 135, 171),
                 ),
-                Image.asset(
-                  dogAnimaOne,
-                ),
-                const Expanded(
-                  child: Text(
-                    "Adopt Me",
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 255, 135, 171),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-           Expanded(
-            flex: 3,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                 const Padding(
-                  padding: EdgeInsets.only(left: 16.0),
-                  child: Text(
-                    "Nome",
-                    style: titleStyle,
-                  ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                child: TextField(
+                  decoration: textFieldDecoration(label: 'Nome'),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: TextField(
-                    decoration: textFieldDecoration,
-                  ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                child: TextField(
+                  decoration: textFieldDecoration(label: 'Email'),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 16.0),
-                  child: Text(
-                    "Email",
-                    style: titleStyle,
-                  ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                child: TextField(
+                  decoration: textFieldDecoration(label: 'Password'),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: TextField(
-                    decoration: textFieldDecoration,
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 16.0),
-                  child: Text(
-                    "Password",
-                    style: titleStyle,
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: TextField(
-                    decoration: textFieldDecoration,
-                  ),
-                ),
-               
-                AppButton(title: "SignUp",
-                onclick: (){
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BaseScreen()),
-                    );
-                },),
-              ],
-            ),
+              ),
+            ],
           ),
-          Expanded(
-            flex: 1,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'OR',
-                    style: titleStyleOr,
-                  ),
+          AppButton(
+            title: "SignUp",
+            onPressed: () {},
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'OR',
+                  style: titleStyleOr,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(faceImage),
-                    Image.asset(googleImage),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text("Have an account?"),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginScreen()),
-                    );
-                      },
-                      child: const Text(
-                        'Login',
-                        style: TextStyle(
-                          color: mainColor,
-                          fontWeight: FontWeight.bold,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(faceImage),
+                  Image.asset(googleImage),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Have an account?"),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginPage(),
                         ),
+                      );
+                    },
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(
+                        color: mainColor,
+                        fontWeight: FontWeight.bold,
                       ),
-                    )
-                  ],
-                )
-              ],
-            ),
+                    ),
+                  )
+                ],
+              )
+            ],
           ),
           const SizedBox(
-            height: 10,
+            height: 50,
           )
         ],
       ),
