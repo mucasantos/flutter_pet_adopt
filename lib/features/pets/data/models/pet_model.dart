@@ -90,6 +90,24 @@ class PetModel extends Equatable {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'name': name,
+      'images': images,
+      'age': age,
+      'weight': weight,
+      'color': color,
+      'gender': gender,
+      'breed': breed,
+      'story': story,
+      'categoryId': categoryId,
+      'categoryName': categoryName,
+      'isVerified': isVerified,
+      'available': available,
+    };
+  }
+
   @override
   List<Object?> get props => [
         id,

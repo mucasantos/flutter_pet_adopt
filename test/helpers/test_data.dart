@@ -99,7 +99,7 @@ const samplePets = [samplePet, sampleDogPet];
 const sampleCategories = [sampleCategory, sampleDogCategory];
 
 const sampleAuthUserModel = AuthUserModel(
-  id: 'user-1',
+  userId: 'user-1',
   name: 'Samuel Santos',
   email: 'samuel@example.com',
   phone: '+55 11 99999-0000',
@@ -109,10 +109,11 @@ const sampleAuthUserModel = AuthUserModel(
 const sampleAuthSessionModel = AuthSessionModel(
   token: 'token-1234567890',
   user: sampleAuthUserModel,
+  pets: [samplePetModel],
 );
 
 const sampleAuthUser = AuthUserEntity(
-  id: 'user-1',
+  userId: 'user-1',
   name: 'Samuel Santos',
   email: 'samuel@example.com',
   phone: '+55 11 99999-0000',
@@ -122,4 +123,5 @@ const sampleAuthUser = AuthUserEntity(
 const sampleAuthSession = AuthSessionEntity(
   token: 'token-1234567890',
   user: sampleAuthUser,
+  pets: [samplePet],
 );

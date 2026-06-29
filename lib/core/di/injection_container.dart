@@ -15,6 +15,11 @@ import 'package:flutter_pet_adopt/features/pets/domain/repositories/pets_reposit
 import 'package:flutter_pet_adopt/features/pets/domain/usecases/get_categories.dart';
 import 'package:flutter_pet_adopt/features/pets/domain/usecases/get_pets.dart';
 import 'package:flutter_pet_adopt/features/pets/presentation/cubit/pets_cubit.dart';
+import 'package:flutter_pet_adopt/features/campaign/data/datasources/campaign_remote_data_source.dart';
+import 'package:flutter_pet_adopt/features/campaign/data/repositories/campaign_repository_impl.dart';
+import 'package:flutter_pet_adopt/features/campaign/domain/repositories/campaign_repository.dart';
+import 'package:flutter_pet_adopt/features/campaign/domain/usecases/get_active_campaign.dart';
+import 'package:flutter_pet_adopt/features/campaign/presentation/cubit/campaign_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -106,6 +111,33 @@ Future<void> setupDependencies() async {
       () => GetCategories(sl<PetsRepository>()),
     );
   }
+
+  // Campaign feature registrations
+  if (!sl.isRegistered<CampaignRemoteDataSource>()) {
+    sl.registerLazySingleton<CampaignRemoteDataSource>(
+      () => CampaignRemoteDataSourceImpl(apiClient: sl<ApiClient>()),
+    );
+  }
+
+  if (!sl.isRegistered<CampaignRepository>()) {
+    sl.registerLazySingleton<CampaignRepository>(
+      () => CampaignRepositoryImpl(
+        remoteDataSource: sl<CampaignRemoteDataSource>(),
+      ),
+    );
+  }
+
+  if (!sl.isRegistered<GetActiveCampaign>()) {
+    sl.registerLazySingleton<GetActiveCampaign>(
+      () => GetActiveCampaign(sl<CampaignRepository>()),
+    );
+  }
+
+  sl.registerFactory(
+    () => CampaignCubit(
+      getActiveCampaign: sl<GetActiveCampaign>(),
+    ),
+  );
 
   sl.registerFactory(
     () => AuthCubit(

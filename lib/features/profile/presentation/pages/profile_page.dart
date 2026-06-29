@@ -5,6 +5,8 @@ import 'package:flutter_pet_adopt/core/presentation/widgets/app_button.dart';
 import 'package:flutter_pet_adopt/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:flutter_pet_adopt/features/auth/presentation/cubit/auth_state.dart';
 import 'package:flutter_pet_adopt/features/profile/presentation/widgets/profile_avatar.dart';
+import 'package:flutter_pet_adopt/features/pets/presentation/widgets/pet_card.dart';
+import 'package:flutter_pet_adopt/features/pets/presentation/pages/pet_details_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -70,7 +72,6 @@ class ProfilePage extends StatelessWidget {
               _ProfileInfoCard(
                 title: 'Dados da conta',
                 children: [
-                  _ProfileInfoRow(label: 'ID', value: user.userId),
                   _ProfileInfoRow(label: 'Email', value: user.email),
                   _ProfileInfoRow(
                     label: 'Telefone',
@@ -82,14 +83,53 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
-              _ProfileInfoCard(
-                title: 'Sessao',
-                children: [
-                  _ProfileInfoRow(
-                      label: 'Token', value: _maskToken(session.token)),
-                ],
+              const SizedBox(height: 24),
+              const Text(
+                'Meus Pets',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: mainColor,
+                ),
               ),
+              const SizedBox(height: 12),
+              if (session.pets.isNotEmpty)
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                    childAspectRatio: 0.72,
+                  ),
+                  itemCount: session.pets.length,
+                  itemBuilder: (context, index) {
+                    final pet = session.pets[index];
+                    return PetCard(
+                      pet: pet,
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => PetDetailsPage(pet: pet),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                )
+              else
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  child: Text(
+                    'Você ainda não possui pets cadastrados.',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ),
               const SizedBox(height: 24),
               AppButton(
                 title: 'Logout',
@@ -173,10 +213,4 @@ class _ProfileInfoRow extends StatelessWidget {
   }
 }
 
-String _maskToken(String token) {
-  if (token.length <= 10) {
-    return token;
-  }
 
-  return '${token.substring(0, 6)}...${token.substring(token.length - 4)}';
-}

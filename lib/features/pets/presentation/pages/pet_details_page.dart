@@ -96,7 +96,7 @@ class PetDetailsPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             PetInfoTile(
-                              title: pet.breed ?? 'Breed unavailable',
+                              title: pet.breed ?? 'Unavailable',
                               info: 'Breed',
                             ),
                             PetInfoTile(

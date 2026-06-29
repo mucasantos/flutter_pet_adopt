@@ -4,6 +4,7 @@ import 'package:flutter_pet_adopt/core/di/injection_container.dart';
 import 'package:flutter_pet_adopt/features/app_shell/presentation/cubit/app_shell_cubit.dart';
 import 'package:flutter_pet_adopt/features/app_shell/presentation/pages/app_shell_page.dart';
 import 'package:flutter_pet_adopt/features/pets/presentation/cubit/pets_cubit.dart';
+import 'package:flutter_pet_adopt/features/campaign/presentation/cubit/campaign_cubit.dart';
 
 class AppShellRoot extends StatelessWidget {
   const AppShellRoot({super.key});
@@ -17,6 +18,9 @@ class AppShellRoot extends StatelessWidget {
         ),
         BlocProvider<PetsCubit>(
           create: (_) => sl<PetsCubit>()..load(),
+        ),
+        BlocProvider<CampaignCubit>(
+          create: (_) => sl<CampaignCubit>()..fetchActiveCampaign(),
         ),
       ],
       child: const AppShellPage(),

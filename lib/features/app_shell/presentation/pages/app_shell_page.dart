@@ -5,6 +5,10 @@ import 'package:flutter_pet_adopt/features/app_shell/presentation/cubit/app_shel
 import 'package:flutter_pet_adopt/features/pets/presentation/pages/pets_view.dart';
 import 'package:flutter_pet_adopt/features/profile/presentation/pages/profile_page.dart';
 
+import 'package:flutter_pet_adopt/features/campaign/presentation/cubit/campaign_cubit.dart';
+import 'package:flutter_pet_adopt/features/campaign/presentation/cubit/campaign_state.dart';
+import 'package:flutter_pet_adopt/features/campaign/presentation/widgets/sdui_modal.dart';
+
 class AppShellPage extends StatelessWidget {
   const AppShellPage({
     super.key,
@@ -29,9 +33,19 @@ class AppShellPage extends StatelessWidget {
           ProfilePage(),
         ];
 
-    return BlocBuilder<AppShellCubit, int>(
-      builder: (context, index) {
-        return Scaffold(
+    return BlocListener<CampaignCubit, CampaignState>(
+      listener: (context, state) {
+        if (state is CampaignLoaded) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (dialogContext) => SduiCampaignModal(campaign: state.campaign),
+          );
+        }
+      },
+      child: BlocBuilder<AppShellCubit, int>(
+        builder: (context, index) {
+          return Scaffold(
           backgroundColor: Colors.white,
           body: IndexedStack(
             index: index,
@@ -70,8 +84,9 @@ class AppShellPage extends StatelessWidget {
           ),
         );
       },
-    );
-  }
+    ),
+  );
+}
 }
 
 class _ShellPlaceholder extends StatelessWidget {

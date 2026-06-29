@@ -2,15 +2,18 @@ import 'package:flutter/foundation.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_pet_adopt/features/auth/data/models/auth_user_model.dart';
 import 'package:flutter_pet_adopt/features/auth/domain/entities/auth_session_entity.dart';
+import 'package:flutter_pet_adopt/features/pets/data/models/pet_model.dart';
 
 class AuthSessionModel extends Equatable {
   const AuthSessionModel({
     required this.token,
     required this.user,
+    required this.pets,
   });
 
   final String token;
   final AuthUserModel user;
+  final List<PetModel> pets;
 
   factory AuthSessionModel.fromJson(
     Map<String, dynamic> json, {
@@ -32,9 +35,17 @@ class AuthSessionModel extends Equatable {
           )
         : AuthUserModel.fromJson(rawUser, fallbackEmail: fallbackEmail);
 
+    final rawPets = _extractPets(json);
+    final petsList = rawPets != null
+        ? rawPets
+            .map((item) => PetModel.fromJson(item as Map<String, dynamic>))
+            .toList()
+        : const <PetModel>[];
+
     return AuthSessionModel(
       token: token,
       user: user,
+      pets: petsList,
     );
   }
 
@@ -46,9 +57,17 @@ class AuthSessionModel extends Equatable {
       throw const FormatException('Stored session is invalid.');
     }
 
+    final rawPets = _extractPets(json);
+    final petsList = rawPets != null
+        ? rawPets
+            .map((item) => PetModel.fromJson(item as Map<String, dynamic>))
+            .toList()
+        : const <PetModel>[];
+
     return AuthSessionModel(
       token: token,
       user: AuthUserModel.fromJson(rawUser),
+      pets: petsList,
     );
   }
 
@@ -56,6 +75,7 @@ class AuthSessionModel extends Equatable {
     return AuthSessionEntity(
       token: token,
       user: user.toEntity(),
+      pets: pets.map((e) => e.toEntity()).toList(),
     );
   }
 
@@ -63,11 +83,12 @@ class AuthSessionModel extends Equatable {
     return {
       'token': token,
       'user': user.toJson(),
+      'pets': pets.map((e) => e.toJson()).toList(),
     };
   }
 
   @override
-  List<Object?> get props => [token, user];
+  List<Object?> get props => [token, user, pets];
 }
 
 String? _extractToken(Map<String, dynamic> json) {
@@ -110,6 +131,20 @@ Map<String, dynamic>? _extractUser(Map<String, dynamic> json) {
       json.containsKey('uid') ||
       json.containsKey('id')) {
     return json;
+  }
+
+  return null;
+}
+
+List<dynamic>? _extractPets(Map<String, dynamic> json) {
+  final rawPets = json['pets'];
+  if (rawPets is List) {
+    return rawPets;
+  }
+
+  final data = json['data'];
+  if (data is Map<String, dynamic>) {
+    return _extractPets(data);
   }
 
   return null;

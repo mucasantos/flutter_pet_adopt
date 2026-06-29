@@ -48,12 +48,12 @@ void main() {
 
     expect(find.text('Samuel Santos'), findsOneWidget);
     expect(find.text('samuel@example.com'), findsAtLeastNWidgets(1));
-    expect(find.text('token-...7890'), findsOneWidget);
+    expect(find.text('Milo'), findsOneWidget);
 
     await tester.scrollUntilVisible(
       find.text('Logout'),
       300,
-      scrollable: find.byType(Scrollable),
+      scrollable: find.byType(Scrollable).first,
     );
     await tester.tap(find.text('Logout'));
     await tester.pump();

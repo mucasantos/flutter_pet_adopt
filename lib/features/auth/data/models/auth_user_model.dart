@@ -22,9 +22,10 @@ class AuthUserModel extends Equatable {
     Map<String, dynamic> json, {
     String? fallbackEmail,
   }) {
-    final email = _stringOrNull(
-          json['email'] ?? json['mail'] ?? json['username'],
-        ) ??
+    final emailVal = _stringOrNull(json['email'] ?? json['mail']);
+    final usernameVal = _stringOrNull(json['username']);
+    final email = emailVal ??
+        (usernameVal != null && usernameVal.contains('@') ? usernameVal : null) ??
         fallbackEmail;
 
     if (email == null) {
@@ -36,6 +37,8 @@ class AuthUserModel extends Equatable {
             json['name'] ??
                 json['fullName'] ??
                 json['fullname'] ??
+                (usernameVal != null && !usernameVal.contains('@') ? usernameVal : null) ??
+                json['username'] ??
                 json['user'],
           ) ??
           _nameFromEmail(email),
