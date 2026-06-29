@@ -19,24 +19,38 @@ void main() {
   });
 
   test('maps pet models into pet entities', () async {
-    when(() => remoteDataSource.getPets()).thenAnswer((_) async => [
-          samplePetModel,
-          sampleDogPetModel,
-        ]);
+    const paginatedModel = PaginatedPetsModel(
+      pets: [
+        samplePetModel,
+        sampleDogPetModel,
+      ],
+      total: 2,
+      page: 1,
+      limit: 10,
+      totalPages: 1,
+    );
+    when(() => remoteDataSource.getPets(
+          page: any(named: 'page'),
+          limit: any(named: 'limit'),
+        )).thenAnswer((_) async => paginatedModel);
 
-    final result = await repository.getPets();
+    final result = await repository.getPets(page: 1, limit: 10);
 
-    expect(result, samplePets);
-    verify(() => remoteDataSource.getPets()).called(1);
+    expect(result.pets, samplePets);
+    expect(result.total, 2);
+    verify(() => remoteDataSource.getPets(page: 1, limit: 10)).called(1);
   });
 
   test('translates server exceptions into failure exceptions', () async {
-    when(() => remoteDataSource.getPets()).thenThrow(
+    when(() => remoteDataSource.getPets(
+          page: any(named: 'page'),
+          limit: any(named: 'limit'),
+        )).thenThrow(
       const ServerException(message: 'Server unavailable'),
     );
 
     expect(
-      repository.getPets(),
+      repository.getPets(page: 1, limit: 10),
       throwsA(
         isA<FailureException>().having(
           (error) => error.failure,

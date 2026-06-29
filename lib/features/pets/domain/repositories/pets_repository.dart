@@ -1,7 +1,7 @@
 import 'package:flutter_pet_adopt/features/pets/domain/entities/category_entity.dart';
-import 'package:flutter_pet_adopt/features/pets/domain/entities/pet_entity.dart';
+import 'package:flutter_pet_adopt/features/pets/domain/entities/paginated_pets.dart';
 
 abstract class PetsRepository {
-  Future<List<PetEntity>> getPets();
+  Future<PaginatedPets> getPets({required int page, required int limit});
   Future<List<CategoryEntity>> getCategories();
 }

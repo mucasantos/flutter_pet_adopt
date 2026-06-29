@@ -7,6 +7,8 @@ import 'package:mocktail/mocktail.dart';
 
 import '../../../../helpers/test_data.dart';
 
+import 'package:flutter_pet_adopt/features/pets/domain/entities/paginated_pets.dart';
+
 class MockPetsRepository extends Mock implements PetsRepository {}
 
 void main() {
@@ -18,12 +20,22 @@ void main() {
 
   test('GetPets returns pets from repository', () async {
     final usecase = GetPets(repository);
-    when(() => repository.getPets()).thenAnswer((_) async => samplePets);
+    const paginated = PaginatedPets(
+      pets: samplePets,
+      total: 2,
+      page: 1,
+      limit: 10,
+      totalPages: 1,
+    );
+    when(() => repository.getPets(
+          page: any(named: 'page'),
+          limit: any(named: 'limit'),
+        )).thenAnswer((_) async => paginated);
 
-    final result = await usecase(const NoParams());
+    final result = await usecase(const GetPetsParams(page: 1, limit: 10));
 
-    expect(result, samplePets);
-    verify(() => repository.getPets()).called(1);
+    expect(result, paginated);
+    verify(() => repository.getPets(page: 1, limit: 10)).called(1);
   });
 
   test('GetCategories returns categories from repository', () async {

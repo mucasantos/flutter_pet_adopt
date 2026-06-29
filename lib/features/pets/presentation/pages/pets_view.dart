@@ -13,8 +13,34 @@ import 'package:flutter_pet_adopt/features/pets/presentation/widgets/pets_error_
 import 'package:flutter_pet_adopt/features/pets/presentation/widgets/pets_header.dart';
 import 'package:flutter_pet_adopt/features/profile/presentation/widgets/profile_avatar.dart';
 
-class PetsView extends StatelessWidget {
+class PetsView extends StatefulWidget {
   const PetsView({super.key});
+
+  @override
+  State<PetsView> createState() => _PetsViewState();
+}
+
+class _PetsViewState extends State<PetsView> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent - 200) {
+      context.read<PetsCubit>().loadNextPage();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -151,22 +177,40 @@ class PetsView extends StatelessWidget {
             return const EmptyPetsState();
           }
 
-          return GridView.builder(
-            padding: const EdgeInsets.all(12),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: crossAxisCount,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 0.72,
-            ),
-            itemCount: state.visiblePets.length,
-            itemBuilder: (context, index) {
-              final pet = state.visiblePets[index];
-              return PetCard(
-                pet: pet,
-                onTap: () => _openDetails(context, pet),
-              );
-            },
+          return CustomScrollView(
+            controller: _scrollController,
+            slivers: [
+              SliverPadding(
+                padding: const EdgeInsets.all(12),
+                sliver: SliverGrid(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: crossAxisCount,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                    childAspectRatio: 0.72,
+                  ),
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      final pet = state.visiblePets[index];
+                      return PetCard(
+                        pet: pet,
+                        onTap: () => _openDetails(context, pet),
+                      );
+                    },
+                    childCount: state.visiblePets.length,
+                  ),
+                ),
+              ),
+              if (state.isLoadingMore)
+                const SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
+                ),
+            ],
           );
         },
       ),

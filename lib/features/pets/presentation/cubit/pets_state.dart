@@ -13,6 +13,10 @@ class PetsState extends Equatable {
     this.selectedCategoryId,
     this.searchQuery = '',
     this.message,
+    this.currentPage = 1,
+    this.totalPages = 1,
+    this.hasMore = false,
+    this.isLoadingMore = false,
   });
 
   final PetsStatus status;
@@ -22,6 +26,10 @@ class PetsState extends Equatable {
   final String? selectedCategoryId;
   final String searchQuery;
   final String? message;
+  final int currentPage;
+  final int totalPages;
+  final bool hasMore;
+  final bool isLoadingMore;
 
   PetsState copyWith({
     PetsStatus? status,
@@ -31,6 +39,10 @@ class PetsState extends Equatable {
     Object? selectedCategoryId = _sentinel,
     String? searchQuery,
     Object? message = _sentinel,
+    int? currentPage,
+    int? totalPages,
+    bool? hasMore,
+    bool? isLoadingMore,
   }) {
     return PetsState(
       status: status ?? this.status,
@@ -43,6 +55,10 @@ class PetsState extends Equatable {
       searchQuery: searchQuery ?? this.searchQuery,
       message:
           identical(message, _sentinel) ? this.message : message as String?,
+      currentPage: currentPage ?? this.currentPage,
+      totalPages: totalPages ?? this.totalPages,
+      hasMore: hasMore ?? this.hasMore,
+      isLoadingMore: isLoadingMore ?? this.isLoadingMore,
     );
   }
 
@@ -55,6 +71,10 @@ class PetsState extends Equatable {
         selectedCategoryId,
         searchQuery,
         message,
+        currentPage,
+        totalPages,
+        hasMore,
+        isLoadingMore,
       ];
 }
 

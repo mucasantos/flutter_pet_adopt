@@ -23,19 +23,29 @@ class PetsCubit extends Cubit<PetsState> {
       state.copyWith(
         status: PetsStatus.loading,
         message: null,
+        currentPage: 1,
+        totalPages: 1,
+        hasMore: false,
+        isLoadingMore: false,
+        pets: const [],
+        visiblePets: const [],
       ),
     );
 
     try {
-      final pets = await _getPets(const NoParams());
+      final paginated = await _getPets(const GetPetsParams(page: 1, limit: 10));
       final categories = await _getCategories(const NoParams());
 
       emit(
         _buildFilteredState(
-          pets: pets,
+          pets: paginated.pets,
           categories: categories,
           status: PetsStatus.success,
           message: null,
+        ).copyWith(
+          currentPage: paginated.page,
+          totalPages: paginated.totalPages,
+          hasMore: paginated.page < paginated.totalPages,
         ),
       );
     } on FailureException catch (error) {
@@ -48,6 +58,42 @@ class PetsCubit extends Cubit<PetsState> {
           categories: const [],
           selectedCategoryId: null,
           searchQuery: '',
+        ),
+      );
+    }
+  }
+
+  Future<void> loadNextPage() async {
+    if (state.status == PetsStatus.loading ||
+        state.isLoadingMore ||
+        !state.hasMore) {
+      return;
+    }
+
+    emit(state.copyWith(isLoadingMore: true));
+
+    try {
+      final nextPage = state.currentPage + 1;
+      final paginated = await _getPets(GetPetsParams(page: nextPage, limit: 10));
+
+      final allPets = List<PetEntity>.from(state.pets)..addAll(paginated.pets);
+
+      emit(
+        _buildFilteredState(
+          pets: allPets,
+          status: PetsStatus.success,
+        ).copyWith(
+          currentPage: paginated.page,
+          totalPages: paginated.totalPages,
+          hasMore: paginated.page < paginated.totalPages,
+          isLoadingMore: false,
+        ),
+      );
+    } on FailureException catch (error) {
+      emit(
+        state.copyWith(
+          isLoadingMore: false,
+          message: error.failure.message,
         ),
       );
     }

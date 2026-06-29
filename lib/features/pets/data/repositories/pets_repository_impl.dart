@@ -5,6 +5,8 @@ import 'package:flutter_pet_adopt/features/pets/domain/entities/category_entity.
 import 'package:flutter_pet_adopt/features/pets/domain/entities/pet_entity.dart';
 import 'package:flutter_pet_adopt/features/pets/domain/repositories/pets_repository.dart';
 
+import 'package:flutter_pet_adopt/features/pets/domain/entities/paginated_pets.dart';
+
 class PetsRepositoryImpl implements PetsRepository {
   const PetsRepositoryImpl({
     required this.remoteDataSource,
@@ -31,12 +33,16 @@ class PetsRepositoryImpl implements PetsRepository {
   }
 
   @override
-  Future<List<PetEntity>> getPets() async {
+  Future<PaginatedPets> getPets({required int page, required int limit}) async {
     try {
-      final pets = await remoteDataSource.getPets();
-      return pets.map((pet) => pet.toEntity()).toList(
-            growable: false,
-          );
+      final paginated = await remoteDataSource.getPets(page: page, limit: limit);
+      return PaginatedPets(
+        pets: paginated.pets.map((pet) => pet.toEntity()).toList(growable: false),
+        total: paginated.total,
+        page: paginated.page,
+        limit: paginated.limit,
+        totalPages: paginated.totalPages,
+      );
     } on ServerException catch (error) {
       throw FailureException(ServerFailure(error.message));
     } on ParsingException catch (error) {

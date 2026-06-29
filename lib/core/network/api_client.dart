@@ -13,7 +13,7 @@ class ApiClient {
   final String host;
 
   Future<Map<String, dynamic>> get(String endpoint) async {
-    final uri = Uri.https(host, endpoint);
+    final uri = Uri.parse('https://$host$endpoint');
     final response = await client.get(uri);
     return _decodeResponse(response);
   }
@@ -23,7 +23,7 @@ class ApiClient {
     Map<String, dynamic>? body,
     Map<String, String>? headers,
   }) async {
-    final uri = Uri.https(host, endpoint);
+    final uri = Uri.parse('https://$host$endpoint');
     final response = await client.post(
       uri,
       headers: {

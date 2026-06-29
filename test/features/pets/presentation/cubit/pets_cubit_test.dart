@@ -2,6 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_pet_adopt/core/error/failures.dart';
 import 'package:flutter_pet_adopt/core/usecase/usecase.dart';
+import 'package:flutter_pet_adopt/features/pets/domain/entities/paginated_pets.dart';
 import 'package:flutter_pet_adopt/features/pets/domain/usecases/get_categories.dart';
 import 'package:flutter_pet_adopt/features/pets/domain/usecases/get_pets.dart';
 import 'package:flutter_pet_adopt/features/pets/presentation/cubit/pets_cubit.dart';
@@ -18,8 +19,17 @@ void main() {
   late MockGetPets getPets;
   late MockGetCategories getCategories;
 
+  const samplePaginatedPets = PaginatedPets(
+    pets: samplePets,
+    total: 2,
+    page: 1,
+    limit: 10,
+    totalPages: 1,
+  );
+
   setUpAll(() {
     registerFallbackValue(const NoParams());
+    registerFallbackValue(const GetPetsParams(page: 1, limit: 10));
   });
 
   setUp(() {
@@ -37,7 +47,7 @@ void main() {
   blocTest<PetsCubit, PetsState>(
     'emits loading then success when data loads',
     build: () {
-      when(() => getPets(any())).thenAnswer((_) async => samplePets);
+      when(() => getPets(any())).thenAnswer((_) async => samplePaginatedPets);
       when(() => getCategories(any()))
           .thenAnswer((_) async => sampleCategories);
       return buildCubit();
@@ -50,6 +60,10 @@ void main() {
         pets: samplePets,
         visiblePets: samplePets,
         categories: sampleCategories,
+        currentPage: 1,
+        totalPages: 1,
+        hasMore: false,
+        isLoadingMore: false,
       ),
     ],
   );
@@ -75,7 +89,7 @@ void main() {
   blocTest<PetsCubit, PetsState>(
     'filters pets by selected category',
     build: () {
-      when(() => getPets(any())).thenAnswer((_) async => samplePets);
+      when(() => getPets(any())).thenAnswer((_) async => samplePaginatedPets);
       when(() => getCategories(any()))
           .thenAnswer((_) async => sampleCategories);
       return buildCubit();
@@ -91,6 +105,10 @@ void main() {
         pets: samplePets,
         visiblePets: samplePets,
         categories: sampleCategories,
+        currentPage: 1,
+        totalPages: 1,
+        hasMore: false,
+        isLoadingMore: false,
       ),
       const PetsState(
         status: PetsStatus.success,
@@ -98,6 +116,10 @@ void main() {
         visiblePets: [samplePet],
         categories: sampleCategories,
         selectedCategoryId: 'cat',
+        currentPage: 1,
+        totalPages: 1,
+        hasMore: false,
+        isLoadingMore: false,
       ),
     ],
   );
@@ -105,7 +127,7 @@ void main() {
   blocTest<PetsCubit, PetsState>(
     'filters pets by search query',
     build: () {
-      when(() => getPets(any())).thenAnswer((_) async => samplePets);
+      when(() => getPets(any())).thenAnswer((_) async => samplePaginatedPets);
       when(() => getCategories(any()))
           .thenAnswer((_) async => sampleCategories);
       return buildCubit();
@@ -121,6 +143,10 @@ void main() {
         pets: samplePets,
         visiblePets: samplePets,
         categories: sampleCategories,
+        currentPage: 1,
+        totalPages: 1,
+        hasMore: false,
+        isLoadingMore: false,
       ),
       const PetsState(
         status: PetsStatus.success,
@@ -128,6 +154,10 @@ void main() {
         visiblePets: [sampleDogPet],
         categories: sampleCategories,
         searchQuery: 'buddy',
+        currentPage: 1,
+        totalPages: 1,
+        hasMore: false,
+        isLoadingMore: false,
       ),
     ],
   );
@@ -141,7 +171,7 @@ void main() {
           attempts += 1;
           throw const FailureException(ServerFailure('Temporary failure'));
         }
-        return samplePets;
+        return samplePaginatedPets;
       });
       when(() => getCategories(any()))
           .thenAnswer((_) async => sampleCategories);
@@ -160,12 +190,22 @@ void main() {
       const PetsState(
         status: PetsStatus.loading,
         message: null,
+        currentPage: 1,
+        totalPages: 1,
+        hasMore: false,
+        isLoadingMore: false,
+        pets: [],
+        visiblePets: [],
       ),
       const PetsState(
         status: PetsStatus.success,
         pets: samplePets,
         visiblePets: samplePets,
         categories: sampleCategories,
+        currentPage: 1,
+        totalPages: 1,
+        hasMore: false,
+        isLoadingMore: false,
       ),
     ],
   );

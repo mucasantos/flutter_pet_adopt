@@ -4,8 +4,45 @@ import 'package:flutter_pet_adopt/features/pets/data/models/category_model.dart'
 import 'package:flutter_pet_adopt/features/pets/data/models/pet_model.dart';
 
 abstract class PetsRemoteDataSource {
-  Future<List<PetModel>> getPets();
+  Future<PaginatedPetsModel> getPets({required int page, required int limit});
   Future<List<CategoryModel>> getCategories();
+}
+
+class PaginatedPetsModel {
+  final List<PetModel> pets;
+  final int total;
+  final int page;
+  final int limit;
+  final int totalPages;
+
+  const PaginatedPetsModel({
+    required this.pets,
+    required this.total,
+    required this.page,
+    required this.limit,
+    required this.totalPages,
+  });
+
+  factory PaginatedPetsModel.fromJson(Map<String, dynamic> json) {
+    final rawPets = json['pets'];
+    final rawPagination = json['pagination'];
+
+    if (rawPets is! List || rawPagination is! Map) {
+      throw const FormatException('Invalid paginated response.');
+    }
+
+    final petsList = rawPets
+        .map((pet) => PetModel.fromJson(Map<String, dynamic>.from(pet as Map)))
+        .toList();
+
+    return PaginatedPetsModel(
+      pets: petsList,
+      total: rawPagination['total'] as int? ?? 0,
+      page: rawPagination['page'] as int? ?? 1,
+      limit: rawPagination['limit'] as int? ?? 10,
+      totalPages: rawPagination['totalPages'] as int? ?? 1,
+    );
+  }
 }
 
 class PetsRemoteDataSourceImpl implements PetsRemoteDataSource {
@@ -42,22 +79,11 @@ class PetsRemoteDataSourceImpl implements PetsRemoteDataSource {
   }
 
   @override
-  Future<List<PetModel>> getPets() async {
-    final response = await apiClient.get(_PetsEndpoints.pets);
-    final rawPets = response['pets'];
-
-    if (rawPets is! List) {
-      throw const ParsingException(message: 'Invalid pets response.');
-    }
+  Future<PaginatedPetsModel> getPets({required int page, required int limit}) async {
+    final response = await apiClient.get('${_PetsEndpoints.pets}?page=$page&limit=$limit');
 
     try {
-      return rawPets
-          .map(
-            (pet) => PetModel.fromJson(
-              Map<String, dynamic>.from(pet as Map),
-            ),
-          )
-          .toList(growable: false);
+      return PaginatedPetsModel.fromJson(response);
     } on FormatException catch (error) {
       throw ParsingException(
         message: error.message,
