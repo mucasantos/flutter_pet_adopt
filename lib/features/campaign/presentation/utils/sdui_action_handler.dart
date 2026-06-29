@@ -28,6 +28,7 @@ class SduiActionHandler {
               final pet = petsCubit.state.pets.firstWhere(
                 (p) => p.id == petId,
               );
+              Navigator.of(context).pop(); // Pop the modal since we have the pet locally
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (_) => PetDetailsPage(pet: pet),
@@ -39,12 +40,14 @@ class SduiActionHandler {
             }
           }
         } else if (route != null) {
+          Navigator.of(context).pop(); // Pop the modal first for other internal routes
           Navigator.of(context).pushNamed(route, arguments: arguments);
         }
         break;
 
       case 'OPEN_EXTERNAL_URL':
         final String? urlString = payload['url'];
+        Navigator.of(context).pop(); // Pop the modal first
         if (urlString != null) {
           launchUrl(Uri.parse(urlString), mode: LaunchMode.externalApplication);
         }
@@ -73,6 +76,11 @@ class SduiActionHandler {
       final pet = await getPetById(petId);
 
       // Pop the loading spinner safely
+      if (context.mounted) {
+        Navigator.of(context).pop();
+      }
+
+      // Pop the campaign modal dialog safely
       if (context.mounted) {
         Navigator.of(context).pop();
       }

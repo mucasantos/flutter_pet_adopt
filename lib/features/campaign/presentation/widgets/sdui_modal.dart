@@ -22,62 +22,74 @@ class SduiCampaignModal extends StatelessWidget {
     return Dialog(
       backgroundColor: HexColor.fromHex(properties.backgroundColor),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              properties.title,
-              style: TextStyle(
-                color: HexColor.fromHex(properties.titleColor),
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            if (properties.imageUrl.isNotEmpty) ...[
-              const SizedBox(height: 16),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  properties.imageUrl,
-                  height: 180,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return const SizedBox(
-                      height: 180,
-                      child: Center(
-                        child: Icon(Icons.broken_image, size: 48, color: Colors.grey),
-                      ),
-                    );
-                  },
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 48.0, left: 20.0, right: 20.0, bottom: 20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  properties.title,
+                  style: TextStyle(
+                    color: HexColor.fromHex(properties.titleColor),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-              ),
-            ],
-            const SizedBox(height: 24),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: HexColor.fromHex(primaryBtn.buttonColor),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-              ),
-              onPressed: () => actionHandler.execute(primaryBtn.action),
-              child: Text(
-                primaryBtn.text,
-                style: TextStyle(color: HexColor.fromHex(primaryBtn.textColor)),
-              ),
+                if (properties.imageUrl.isNotEmpty) ...[
+                  const SizedBox(height: 16),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      properties.imageUrl,
+                      height: 180,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return const SizedBox(
+                          height: 180,
+                          child: Center(
+                            child: Icon(Icons.broken_image, size: 48, color: Colors.grey),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+                const SizedBox(height: 24),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: HexColor.fromHex(primaryBtn.buttonColor),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  ),
+                  onPressed: () => actionHandler.execute(primaryBtn.action),
+                  child: Text(
+                    primaryBtn.text,
+                    style: TextStyle(color: HexColor.fromHex(primaryBtn.textColor)),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                TextButton(
+                  onPressed: () => actionHandler.execute(secondaryBtn.action),
+                  child: Text(
+                    secondaryBtn.text,
+                    style: const TextStyle(color: Colors.grey),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 8),
-            TextButton(
-              onPressed: () => actionHandler.execute(secondaryBtn.action),
-              child: Text(
-                secondaryBtn.text,
-                style: const TextStyle(color: Colors.grey),
-              ),
+          ),
+          Positioned(
+            left: 8,
+            top: 8,
+            child: IconButton(
+              icon: const Icon(Icons.close, color: Colors.grey),
+              onPressed: () => Navigator.of(context).pop(),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
