@@ -6,6 +6,7 @@ import 'package:flutter_pet_adopt/features/pets/data/models/pet_model.dart';
 abstract class PetsRemoteDataSource {
   Future<PaginatedPetsModel> getPets({required int page, required int limit});
   Future<List<CategoryModel>> getCategories();
+  Future<PetModel> getPetById(String id);
 }
 
 class PaginatedPetsModel {
@@ -92,9 +93,30 @@ class PetsRemoteDataSourceImpl implements PetsRemoteDataSource {
       throw const ParsingException(message: 'Unable to parse pets.');
     }
   }
+
+  @override
+  Future<PetModel> getPetById(String id) async {
+    final response = await apiClient.get('${_PetsEndpoints.petDetails}/$id');
+
+    final Map<String, dynamic> petData;
+    if (response.containsKey('pet')) {
+      petData = Map<String, dynamic>.from(response['pet'] as Map);
+    } else {
+      petData = response;
+    }
+
+    try {
+      return PetModel.fromJson(petData);
+    } on FormatException catch (error) {
+      throw ParsingException(message: error.message);
+    } on TypeError {
+      throw const ParsingException(message: 'Unable to parse pet details.');
+    }
+  }
 }
 
 class _PetsEndpoints {
   static const pets = '/pet/pets';
   static const categories = '/pet/category';
+  static const petDetails = '/pet';
 }

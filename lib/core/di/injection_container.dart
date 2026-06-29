@@ -14,6 +14,7 @@ import 'package:flutter_pet_adopt/features/pets/data/repositories/pets_repositor
 import 'package:flutter_pet_adopt/features/pets/domain/repositories/pets_repository.dart';
 import 'package:flutter_pet_adopt/features/pets/domain/usecases/get_categories.dart';
 import 'package:flutter_pet_adopt/features/pets/domain/usecases/get_pets.dart';
+import 'package:flutter_pet_adopt/features/pets/domain/usecases/get_pet_by_id.dart';
 import 'package:flutter_pet_adopt/features/pets/presentation/cubit/pets_cubit.dart';
 import 'package:flutter_pet_adopt/features/campaign/data/datasources/campaign_remote_data_source.dart';
 import 'package:flutter_pet_adopt/features/campaign/data/repositories/campaign_repository_impl.dart';
@@ -109,6 +110,12 @@ Future<void> setupDependencies() async {
   if (!sl.isRegistered<GetCategories>()) {
     sl.registerLazySingleton<GetCategories>(
       () => GetCategories(sl<PetsRepository>()),
+    );
+  }
+
+  if (!sl.isRegistered<GetPetById>()) {
+    sl.registerLazySingleton<GetPetById>(
+      () => GetPetById(sl<PetsRepository>()),
     );
   }
 

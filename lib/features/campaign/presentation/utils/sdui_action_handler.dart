@@ -3,6 +3,8 @@ import 'package:flutter_pet_adopt/features/campaign/domain/entities/campaign.dar
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pet_adopt/features/pets/presentation/cubit/pets_cubit.dart';
 import 'package:flutter_pet_adopt/features/pets/presentation/pages/pet_details_page.dart';
+import 'package:flutter_pet_adopt/core/di/injection_container.dart';
+import 'package:flutter_pet_adopt/features/pets/domain/usecases/get_pet_by_id.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SduiActionHandler {
@@ -32,7 +34,8 @@ class SduiActionHandler {
                 ),
               );
             } catch (e) {
-              debugPrint('⚠️ Pet com ID $petId não encontrado localmente.');
+              debugPrint('⚠️ Pet com ID $petId não encontrado localmente. Buscando no servidor...');
+              _fetchAndNavigate(petId);
             }
           }
         } else if (route != null) {
@@ -53,6 +56,50 @@ class SduiActionHandler {
 
       default:
         debugPrint('⚠️ Ação desconhecida no SDUI: $type');
+    }
+  }
+
+  Future<void> _fetchAndNavigate(String petId) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+
+    try {
+      final getPetById = sl<GetPetById>();
+      final pet = await getPetById(petId);
+
+      // Pop the loading spinner safely
+      if (context.mounted) {
+        Navigator.of(context).pop();
+      }
+
+      // Navigate to the Details Page safely
+      if (context.mounted) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => PetDetailsPage(pet: pet),
+          ),
+        );
+      }
+    } catch (error) {
+      // Pop the loading spinner safely
+      if (context.mounted) {
+        Navigator.of(context).pop();
+      }
+
+      // Show snackbar error safely
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Erro ao carregar os detalhes do pet: $error'),
+            backgroundColor: Colors.redAccent,
+          ),
+        );
+      }
     }
   }
 }

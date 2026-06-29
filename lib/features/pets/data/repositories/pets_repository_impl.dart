@@ -53,4 +53,20 @@ class PetsRepositoryImpl implements PetsRepository {
       );
     }
   }
+
+  @override
+  Future<PetEntity> getPetById(String id) async {
+    try {
+      final petModel = await remoteDataSource.getPetById(id);
+      return petModel.toEntity();
+    } on ServerException catch (error) {
+      throw FailureException(ServerFailure(error.message));
+    } on ParsingException catch (error) {
+      throw FailureException(ParsingFailure(error.message));
+    } catch (_) {
+      throw const FailureException(
+        UnknownFailure('Unexpected error while loading pet details.'),
+      );
+    }
+  }
 }
