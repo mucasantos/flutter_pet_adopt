@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_pet_adopt/features/auth/domain/entities/auth_user_entity.dart';
 
@@ -25,7 +24,9 @@ class AuthUserModel extends Equatable {
     final emailVal = _stringOrNull(json['email'] ?? json['mail']);
     final usernameVal = _stringOrNull(json['username']);
     final email = emailVal ??
-        (usernameVal != null && usernameVal.contains('@') ? usernameVal : null) ??
+        (usernameVal != null && usernameVal.contains('@')
+            ? usernameVal
+            : null) ??
         fallbackEmail;
 
     if (email == null) {
@@ -37,7 +38,9 @@ class AuthUserModel extends Equatable {
             json['name'] ??
                 json['fullName'] ??
                 json['fullname'] ??
-                (usernameVal != null && !usernameVal.contains('@') ? usernameVal : null) ??
+                (usernameVal != null && !usernameVal.contains('@')
+                    ? usernameVal
+                    : null) ??
                 json['username'] ??
                 json['user'],
           ) ??

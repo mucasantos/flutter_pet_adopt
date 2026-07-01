@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_pet_adopt/features/campaign/data/models/campaign_model.dart';
-import 'package:flutter_pet_adopt/features/campaign/domain/entities/campaign.dart';
 
 void main() {
   group('CampaignModel', () {

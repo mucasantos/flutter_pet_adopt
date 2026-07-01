@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-
-
 class Rolagem extends StatefulWidget {
+  const Rolagem({super.key});
+
   @override
-  _RolagemState createState() => _RolagemState();
+  State<Rolagem> createState() => _RolagemState();
 }
 
 class _RolagemState extends State<Rolagem> {
@@ -14,7 +14,7 @@ class _RolagemState extends State<Rolagem> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sidebar Navigation Example'),
+        title: const Text('Sidebar Navigation Example'),
       ),
       body: Row(
         children: <Widget>[
@@ -51,7 +51,7 @@ class _RolagemState extends State<Rolagem> {
                   },
                   child: Text(_isDrawerVisible ? 'Esconder' : 'Mostrar'),
                 ),
-                Text('Content Area'),
+                const Text('Content Area'),
               ],
             ),
           ),
@@ -65,19 +65,20 @@ class VerticalTextButton extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
 
-  VerticalTextButton({required this.text, required this.onTap});
+  const VerticalTextButton(
+      {super.key, required this.text, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: RotatedBox(
           quarterTurns: 3,
           child: Text(
             text,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
             textAlign: TextAlign.center,
           ),
         ),
