@@ -9,11 +9,13 @@ class AuthSessionModel extends Equatable {
     required this.token,
     required this.user,
     required this.pets,
+    required this.favorites,
   });
 
   final String token;
   final AuthUserModel user;
   final List<PetModel> pets;
+  final List<PetModel> favorites;
 
   factory AuthSessionModel.fromJson(
     Map<String, dynamic> json, {
@@ -42,10 +44,18 @@ class AuthSessionModel extends Equatable {
             .toList()
         : const <PetModel>[];
 
+    final rawFavs = _extractFavorites(json);
+    final favoritesList = rawFavs != null
+        ? rawFavs
+            .map((item) => PetModel.fromJson(item as Map<String, dynamic>))
+            .toList()
+        : const <PetModel>[];
+
     return AuthSessionModel(
       token: token,
       user: user,
       pets: petsList,
+      favorites: favoritesList,
     );
   }
 
@@ -64,10 +74,18 @@ class AuthSessionModel extends Equatable {
             .toList()
         : const <PetModel>[];
 
+    final rawFavs = _extractFavorites(json);
+    final favoritesList = rawFavs != null
+        ? rawFavs
+            .map((item) => PetModel.fromJson(item as Map<String, dynamic>))
+            .toList()
+        : const <PetModel>[];
+
     return AuthSessionModel(
       token: token,
       user: AuthUserModel.fromJson(rawUser),
       pets: petsList,
+      favorites: favoritesList,
     );
   }
 
@@ -76,6 +94,7 @@ class AuthSessionModel extends Equatable {
       token: token,
       user: user.toEntity(),
       pets: pets.map((e) => e.toEntity()).toList(),
+      favorites: favorites.map((e) => e.toEntity()).toList(),
     );
   }
 
@@ -84,11 +103,12 @@ class AuthSessionModel extends Equatable {
       'token': token,
       'user': user.toJson(),
       'pets': pets.map((e) => e.toJson()).toList(),
+      'favorites': favorites.map((e) => e.toJson()).toList(),
     };
   }
 
   @override
-  List<Object?> get props => [token, user, pets];
+  List<Object?> get props => [token, user, pets, favorites];
 }
 
 String? _extractToken(Map<String, dynamic> json) {
@@ -145,6 +165,20 @@ List<dynamic>? _extractPets(Map<String, dynamic> json) {
   final data = json['data'];
   if (data is Map<String, dynamic>) {
     return _extractPets(data);
+  }
+
+  return null;
+}
+
+List<dynamic>? _extractFavorites(Map<String, dynamic> json) {
+  final rawFavs = json['favorites'];
+  if (rawFavs is List) {
+    return rawFavs;
+  }
+
+  final data = json['data'];
+  if (data is Map<String, dynamic>) {
+    return _extractFavorites(data);
   }
 
   return null;

@@ -21,6 +21,13 @@ import 'package:flutter_pet_adopt/features/campaign/data/repositories/campaign_r
 import 'package:flutter_pet_adopt/features/campaign/domain/repositories/campaign_repository.dart';
 import 'package:flutter_pet_adopt/features/campaign/domain/usecases/get_active_campaign.dart';
 import 'package:flutter_pet_adopt/features/campaign/presentation/cubit/campaign_cubit.dart';
+import 'package:flutter_pet_adopt/features/favorites/data/datasources/favorites_remote_data_source.dart';
+import 'package:flutter_pet_adopt/features/favorites/data/repositories/favorites_repository_impl.dart';
+import 'package:flutter_pet_adopt/features/favorites/domain/repositories/favorites_repository.dart';
+import 'package:flutter_pet_adopt/features/favorites/domain/usecases/get_favorites.dart';
+import 'package:flutter_pet_adopt/features/favorites/domain/usecases/add_favorite.dart';
+import 'package:flutter_pet_adopt/features/favorites/domain/usecases/remove_favorite.dart';
+import 'package:flutter_pet_adopt/features/favorites/presentation/cubit/favorites_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -140,13 +147,55 @@ Future<void> setupDependencies() async {
     );
   }
 
+  // Favorites Feature
+  if (!sl.isRegistered<FavoritesRemoteDataSource>()) {
+    sl.registerLazySingleton<FavoritesRemoteDataSource>(
+      () => FavoritesRemoteDataSourceImpl(apiClient: sl<ApiClient>()),
+    );
+  }
+
+  if (!sl.isRegistered<FavoritesRepository>()) {
+    sl.registerLazySingleton<FavoritesRepository>(
+      () => FavoritesRepositoryImpl(
+        remoteDataSource: sl<FavoritesRemoteDataSource>(),
+      ),
+    );
+  }
+
+  if (!sl.isRegistered<GetFavorites>()) {
+    sl.registerLazySingleton<GetFavorites>(
+      () => GetFavorites(sl<FavoritesRepository>()),
+    );
+  }
+
+  if (!sl.isRegistered<AddFavorite>()) {
+    sl.registerLazySingleton<AddFavorite>(
+      () => AddFavorite(sl<FavoritesRepository>()),
+    );
+  }
+
+  if (!sl.isRegistered<RemoveFavorite>()) {
+    sl.registerLazySingleton<RemoveFavorite>(
+      () => RemoveFavorite(sl<FavoritesRepository>()),
+    );
+  }
+
+  sl.registerFactory(
+    () => FavoritesCubit(
+      getFavorites: sl<GetFavorites>(),
+      addFavorite: sl<AddFavorite>(),
+      removeFavorite: sl<RemoveFavorite>(),
+      authCubit: sl<AuthCubit>(),
+    ),
+  );
+
   sl.registerFactory(
     () => CampaignCubit(
       getActiveCampaign: sl<GetActiveCampaign>(),
     ),
   );
 
-  sl.registerFactory(
+  sl.registerLazySingleton(
     () => AuthCubit(
       login: sl<Login>(),
       getSavedSession: sl<GetSavedSession>(),

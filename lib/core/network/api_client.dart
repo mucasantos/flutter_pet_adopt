@@ -12,9 +12,12 @@ class ApiClient {
   final http.Client client;
   final String host;
 
-  Future<Map<String, dynamic>> get(String endpoint) async {
+  Future<Map<String, dynamic>> get(
+    String endpoint, {
+    Map<String, String>? headers,
+  }) async {
     final uri = Uri.parse('https://$host$endpoint');
-    final response = await client.get(uri);
+    final response = await client.get(uri, headers: headers);
     return _decodeResponse(response);
   }
 
@@ -33,6 +36,15 @@ class ApiClient {
       body: jsonEncode(body ?? const {}),
     );
     debugPrint('API POST Response [$endpoint]: ${response.body}');
+    return _decodeResponse(response);
+  }
+
+  Future<Map<String, dynamic>> delete(
+    String endpoint, {
+    Map<String, String>? headers,
+  }) async {
+    final uri = Uri.parse('https://$host$endpoint');
+    final response = await client.delete(uri, headers: headers);
     return _decodeResponse(response);
   }
 

@@ -4,6 +4,7 @@ import 'package:flutter_pet_adopt/app_data/constants.dart';
 import 'package:flutter_pet_adopt/core/di/injection_container.dart';
 import 'package:flutter_pet_adopt/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:flutter_pet_adopt/features/auth/presentation/pages/auth_gate_page.dart';
+import 'package:flutter_pet_adopt/features/favorites/presentation/cubit/favorites_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,8 +17,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AuthCubit>(
-      create: (_) => sl<AuthCubit>()..restoreSession(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthCubit>(
+          create: (_) => sl<AuthCubit>()..restoreSession(),
+        ),
+        BlocProvider<FavoritesCubit>(
+          create: (_) => sl<FavoritesCubit>(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Adopt Me',

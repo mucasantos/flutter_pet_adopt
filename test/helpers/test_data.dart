@@ -110,6 +110,7 @@ const sampleAuthSessionModel = AuthSessionModel(
   token: 'token-1234567890',
   user: sampleAuthUserModel,
   pets: [samplePetModel],
+  favorites: [],
 );
 
 const sampleAuthUser = AuthUserEntity(
@@ -124,4 +125,5 @@ const sampleAuthSession = AuthSessionEntity(
   token: 'token-1234567890',
   user: sampleAuthUser,
   pets: [samplePet],
+  favorites: [],
 );

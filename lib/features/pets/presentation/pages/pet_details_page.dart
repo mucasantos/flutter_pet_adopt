@@ -1,9 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pet_adopt/app_data/constants.dart';
 import 'package:flutter_pet_adopt/core/presentation/widgets/app_button.dart';
 import 'package:flutter_pet_adopt/features/pets/domain/entities/pet_entity.dart';
 import 'package:flutter_pet_adopt/features/pets/presentation/widgets/pet_info_tile.dart';
+import 'package:flutter_pet_adopt/features/favorites/presentation/cubit/favorites_cubit.dart';
+import 'package:flutter_pet_adopt/features/favorites/presentation/cubit/favorites_state.dart';
 
 class PetDetailsPage extends StatelessWidget {
   const PetDetailsPage({
@@ -88,6 +91,26 @@ class PetDetailsPage extends StatelessWidget {
                                   size: 25,
                                 ),
                               ],
+                            ),
+                            BlocBuilder<FavoritesCubit, FavoritesState>(
+                              builder: (context, state) {
+                                final isFav = state.isFavorite(pet.id);
+                                return IconButton(
+                                  onPressed: () {
+                                    print("cliquei no coracao!");
+                                    context
+                                        .read<FavoritesCubit>()
+                                        .toggleFavorite(pet.id);
+                                  },
+                                  icon: Icon(
+                                    isFav
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+                                    color: isFav ? Colors.red : mainColor,
+                                    size: 30,
+                                  ),
+                                );
+                              },
                             ),
                           ],
                         ),

@@ -7,12 +7,14 @@ class AuthSessionEntity extends Equatable {
     required this.token,
     required this.user,
     required this.pets,
+    required this.favorites,
   });
 
   final String token;
   final AuthUserEntity user;
   final List<PetEntity> pets;
+  final List<PetEntity> favorites;
 
   @override
-  List<Object?> get props => [token, user, pets];
+  List<Object?> get props => [token, user, pets, favorites];
 }

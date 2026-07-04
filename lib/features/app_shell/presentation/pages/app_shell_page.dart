@@ -9,6 +9,8 @@ import 'package:flutter_pet_adopt/features/campaign/presentation/cubit/campaign_
 import 'package:flutter_pet_adopt/features/campaign/presentation/cubit/campaign_state.dart';
 import 'package:flutter_pet_adopt/features/campaign/presentation/widgets/sdui_modal.dart';
 
+import 'package:flutter_pet_adopt/features/favorites/presentation/pages/favorites_page.dart';
+
 class AppShellPage extends StatelessWidget {
   const AppShellPage({
     super.key,
@@ -22,10 +24,7 @@ class AppShellPage extends StatelessWidget {
     final navigationPages = pages ??
         const [
           PetsView(),
-          _ShellPlaceholder(
-            title: 'Favorites',
-            subtitle: 'Favorites flow is intentionally deferred.',
-          ),
+          FavoritesPage(),
           _ShellPlaceholder(
             title: 'Add Pet',
             subtitle: 'Add-pet flow is intentionally deferred.',
